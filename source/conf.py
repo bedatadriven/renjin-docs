@@ -140,7 +140,7 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+#html_static_path = ['_static']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -194,17 +194,20 @@ htmlhelp_basename = 'Renjindoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
-latex_elements = {
-# The paper size ('letterpaper' or 'a4paper').
-'papersize': 'a4paper',
+if on_rtd:
+    latex_elements = {'papersize': 'a4paper', }
+else:
+    latex_elements = {
+    # The paper size ('letterpaper' or 'a4paper').
+    'papersize': 'a4paper',
 
-# The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+    # The font size ('10pt', '11pt' or '12pt').
+    #'pointsize': '10pt',
 
-# Additional stuff for the LaTeX preamble.
-#'preamble': '\\definecolor{VerbatimColor}{rgb}{0.95,0.95,0.95}\\usepackage{charter}\\usepackage{zi4}',
-'preamble': '\\usepackage{charter}\\usepackage{zi4}',
-}
+    # Additional stuff for the LaTeX preamble.
+    #'preamble': '\\definecolor{VerbatimColor}{rgb}{0.95,0.95,0.95}\\usepackage{charter}\\usepackage{zi4}',
+    'preamble': '\\usepackage{charter}\\usepackage{zi4}',
+    }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
