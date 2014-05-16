@@ -2,15 +2,15 @@ Renjin developer documentation
 ==============================
 
 This repository contains the sources for Renjin's developer documentation. The
-documentation is created using `Sphinx`.
+documentation is created using Sphinx_.
 
 Requirements to build the documentation are:
 
-* `Sphinx`, obviously.
-* The `javasphinx` extension for Sphinx.
+* Sphinx_, obviously.
+* The javasphinx_ extension for Sphinx.
 * LaTeX, if you want to create a PDF version of the documentation.
 
-If you want to creat the HTML documentation using the lovely `RTD theme` you
+If you want to creat the HTML documentation using the lovely `RTD theme`_ you
 will need to install this as well:
 
     pip install sphinx_rtd_theme
@@ -30,7 +30,7 @@ and to make the PDF version:
 Copyright
 ---------
 
-Copyright 2014, `BeDataDriven`.
+Copyright 2014, BeDataDriven_.
 
 .. _Sphinx: http://sphinx-doc.org/
 .. _Read The Docs: http://www.readthedocs.org

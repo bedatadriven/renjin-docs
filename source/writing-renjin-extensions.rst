@@ -5,7 +5,7 @@ Writing Renjin Extensions
 -------------------------
 
 This chapter can be considered as Renjin's equivalent of the `Writing R
-Extensions` manual for GNU R. Here we discuss how you create extensions, or
+Extensions`_ manual for GNU R. Here we discuss how you create extensions, or
 *packages* as they are referred to in R, for Renjin. Packages allow you to
 group logically related functions and data together in a single archive which
 can be reused and shared with others.
