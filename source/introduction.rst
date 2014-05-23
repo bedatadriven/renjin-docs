@@ -21,6 +21,8 @@ from packages like rJava_ and rcaller_.
 .. _rJava: http://www.rforge.net/rJava/
 .. _rcaller: https://code.google.com/p/rcaller/
 
+.. _sec-setting-up-a-java-project-for-renjin:
+
 Setting up a Java project for Renjin
 ------------------------------------
 
@@ -53,6 +55,18 @@ your project:
        <version>RENJIN_VERSION</version>
      </dependency>
    </dependencies>
+
+For this to work you will also need to add BeDataDriven's public repository to your ``pom.xml``:
+
+.. code-block:: xml
+
+    <repositories>
+      <repository>
+        <id>bedatadriven</id>
+        <name>bedatadriven public repo</name>
+        <url>http://nexus.bedatadriven.com/content/groups/public/</url>
+      </repository>
+    </repositories>
 
 Evaluating R language code
 --------------------------
@@ -152,3 +166,33 @@ and evaluate the script using the following snippet:
 
     engine.eval(new java.io.FileReader("script.R"))
 
+Using CRAN packages in Renjin
+-----------------------------
+
+GNU R packages can't be used directly in Renjin. As a service, BeDataDriven
+provides a repository with all CRAN (the `Comprehensive R Archive Network`_)
+packages at http://packages.renjin.org. The packages in this repository are
+built and packaged for use with Renjin. Not all packages can be built for
+Renjin so please consult the repository to see if your favorite package is
+available for Renjin.
+
+If you use Maven you can include a package to your project by adding it as a
+dependency. For example, to include the *exptest* package you add the following
+to your project's ``pom.xml`` file (don't forget to add BeDataDriven's public
+repository as described in the section
+:ref:`sec-setting-up-a-java-project-for-renjin`):
+
+.. code-block:: xml
+
+    <dependency>
+        <groupId>org.renjin.cran</groupId>
+        <artifactId>exptest</artifactId>
+        <version>1.0</version>
+    </dependency>
+
+You will find this information on the package detail page as well. For this
+example this page is at http://packages.renjin.org/packages/exptest.html.
+Inside your R code you can now simply attach this package to the search path
+using the ``library(exptest)`` statement.
+
+.. _Comprehensive R Archive Network: http://cran.r-project.org
