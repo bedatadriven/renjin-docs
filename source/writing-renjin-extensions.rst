@@ -17,7 +17,7 @@ writing unit tests right out of the box. We encourage you to include as many
 unit tests with your package as possible.
 
 One feature currently missing for Renjin packages is the ability to document
-your code. Sorry.
+your R code. You can use Javadoc to document your Java classes and methods.
 
 Package directory layout
 ------------------------
@@ -38,7 +38,6 @@ layout that will cover most Renjin packages is as follows::
                     ...
                 R/
                 resources/
-        DESCRIPTION
         NAMESPACE
         pom.xml
 
@@ -58,10 +57,147 @@ of the directories and files in this layout.
     src/test/java           Unit tests written in Java using JUnit
     src/test/R              Unit tests written in R using Renjin's Hamcrest package
     src/test/resource       Files available to the unit tests (not copied into the generated JAR file)
-    DESCRIPTION             Equivalent to R's DESCRIPTION file
     NAMESPACE               Almost equivalent to R's NAMESPACE file
     pom.xml                 Maven's Project Object Model file
     ====================    =======================
+
+The functionality of the *DESCRIPTION* file used by GNU R packages is replaced
+by a Maven *pom.xml* (POM) file. In this file you define the name of your
+package and any dependencies, if applicable. The POM file is used by Renjin's
+Maven plugin to create the package. This is the subject of the next section.
+
+Renjin Maven plugin
+-------------------
+
+Whereas you would use the commands ``R CMD check``, ``R CMD build``, and ``R
+CMD INSTALL`` to check, build (i.e. package), and install packages for GNU R,
+packages for Renjin are tested, packaged, and installed using a Maven plugin.
+The following XML file can be used as a *pom.xml* template for all Renjin
+packages:
+
+.. code-block:: xml
+
+    <project xmlns="http://maven.apache.org/POM/4.0.0"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+
+        <groupId>com.acme</groupId>
+        <artifactId>foobar</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <packaging>jar</packaging>
+
+        <!-- general information about your package -->
+        <name>Package name or title</name>
+        <description>A short description of your package.</description>
+        <url>http://www.url.to/your/package/website</url>
+        <licenses>
+            <!-- add one or more licenses under which the package is released -->
+            <license>
+                <name>Apache License version 2.0</name>
+                <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            </license>
+        </licenses>
+
+        <properties>
+            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        </properties>
+
+        <dependencies>
+            <!-- the script engine is convenient even if you do not use it explicitly -->
+            <dependency>
+                <groupId>org.renjin</groupId>
+                <artifactId>renjin-script-engine</artifactId>
+                <version>0.7.0-RC7</version>
+            </dependency>
+            <!-- the hamcrest package is only required if you use it for unit tests -->
+            <dependency>
+                <groupId>org.renjin</groupId>
+                <artifactId>hamcrest</artifactId>
+                <version>0.7.0-RC7</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+
+        <repositories>
+            <repository>
+                <id>bedatadriven</id>
+                <name>bedatadriven public repo</name>
+                <url>http://nexus.bedatadriven.com/content/groups/public/</url>
+            </repository>
+        </repositories>
+
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.renjin</groupId>
+                    <artifactId>renjin-maven-plugin</artifactId>
+                    <version>0.7.0-RC7</version>
+                    <executions>
+                        <execution>
+                            <id>build</id>
+                            <goals>
+                                <goal>namespace-compile</goal>
+                            </goals>
+                            <phase>compile</phase>
+                        </execution>
+                        <execution>
+                            <id>test</id>
+                            <goals>
+                                <goal>test</goal>
+                            </goals>
+                            <phase>test</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
+    </project>
+
+This POM file provides a lot of information:
+
+* fully qualified name of the package, namely *com.acme.foobar*;
+* package version, namely *1.0-SNAPSHOT*;
+* package dependencies and their versions, namely the Renjin Script Engine and
+  the *hamcrest* package (see the next section);
+* BeDataDriven's public repository to look for the dependencies if it can't
+  find them locally or in Maven Central;
+
+.. important::
+
+    Package names is one area where Renjin takes a different approach to GNU R
+    and adheres to the Java standard of using fully qualified names. The
+    package in the example above must be loaded using its fully qualified name,
+    that is with ``library(com.acme.foobar)`` or ``require(com.acme.foobar)``.
+    The group ID (*com.acme* in this example) is traditionally a domain over
+    which only you have control. The artifact ID should have only `lower case
+    letters and no strange symbols`_. The term *artifact* is used by Maven to
+    refer to the result of a build which, in the context of this chapter, is
+    always a package.
+
+Now you can use Maven to test, package, and install your package using the
+following commands:
+
+mvn test
+    run the package tests (both the Java and R code tests)
+
+mvn package
+    create a JAR file of the package (named *foobar-1.0-SNAPSHOT.jar* in the
+    example above) in the ``target`` folder of the package's root directory
+
+mvn install
+    install the artifact (i.e. package) into the local repository
+
+mvn deploy
+    upload the artifact to a remote repository (requires additional
+    configuration)
+
+mvn clean
+    clean the project's working directory after a build (can also be combined
+    with one of the previous commands, for example: ``mvn clean install``)
+
+.. _lower case letters and no strange symbols: http://maven.apache.org/guides/mini/guide-naming-conventions.html
 
 Using the *hamcrest* package to write unit tests
 ------------------------------------------------
@@ -79,9 +215,13 @@ matcher functions in Renjin's *hamcrest* package.
 
 A test is a single R function with no arguments and a name that starts with
 ``test.``. Each test function can contain one or more assertions and the test
-fails if at least one of the assertions throws an error. For example:
+fails if at least one of the assertions throws an error. For example, using the
+package defined in the previous section:
 
 .. code-block:: r
+
+    library(hamcrest)
+    library(com.acme.foobar)
 
     test.df <- function() {
         df <- data.frame(x = seq(10), y = runif(10))
@@ -90,10 +230,11 @@ fails if at least one of the assertions throws an error. For example:
         assertThat(dim(df), equalTo(c(10,2)))
     }
 
-Test functions are stored in R script files (i.e. files with extension ``.R``) in
-the ``src/test/R`` folder of your package. Each file should start with the
-statement ``library(hamcrest)`` in order to attach the *hamcrest* package to the
-search path. You can put test functions in different files to group them
+Test functions are stored in R script files (i.e. files with extension ``.R``
+or ``.S``) in the ``src/test/R`` folder of your package. Each file should start
+with the statement ``library(hamcrest)`` in order to attach the *hamcrest*
+package to the search path as well as a ``library()`` statement to load your
+own package.  You can put test functions in different files to group them
 according to your liking.
 
 The central function is the ``assertThat(actual, expected)`` function which takes
