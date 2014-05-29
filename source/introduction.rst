@@ -3,13 +3,16 @@
 Introduction
 ============
 
-This guide intended for Java developers who wish to call R code from a Java
-application, webserver, or other project. This guide is for Renjin version
-|release|.
+This guide covers Renjin version |release| and is aimed at developers looking
+to:
 
-.. The approach is generally the same for other JVM languages such as Scala,
-.. Clojure, JRuby, etc, but users of those languages will need to make some mental
-.. translation from Java syntax to their own.
+1. integrate R code in their Java applications and to exchange data between Java
+   and R code, and/or to
+2. create extension packages that can be used by Renjin much like packages are
+   used to extend GNU R's functionality.
+
+The guide also covers the parts of Renjin's Java API that are most relevant to
+these goals.
 
 About Renjin
 ------------
@@ -25,21 +28,27 @@ existing R language programs will run in Renjin without the need to make any
 changes to the code. Needless to say, Renjin is currently not 100% compatible
 with GNU R so your mileage may vary.
 
-Using R from Java or visa versa is not new: there is the rJava_ package for GNU
-R that allows R code to call Java methods and there is the RCaller_ package to
-call R from Java which is similar to the JRI_ package (now shipped as part of
-*rJava*). *JRI* loads the R dynamic library into Java and provides a Java API to
-the R functionality. *RCaller* works a little different by running R as a
-separate process that the package communicates with. Finally, *rJava* using the
-Java Native Interface (JNI) to enable R to call Java applications running in the
-JVM.
+Executing R code from Java or visa versa is not new: there is the rJava_ package
+for GNU R that allows R code to call Java methods and there is the RCaller_
+package to call R from Java which is similar to the JRI_ package (now shipped as
+part of *rJava*). *JRI* loads the R dynamic library into Java and provides a
+Java API to the R functionality. *RCaller* works a little different by running R
+as a separate process that the package communicates with. Finally, *rJava* uses
+the Java Native Interface (JNI) to enable R to call Java applications running in
+the JVM.
 
 The biggest advantage of Renjin is that the R interpreter itself is a Java
 module which can be seamlessly integrated into any Java application. This
 dispenses with the need to load dynamic libraries or to provide some form of
-communication between separate processes. Renjin also benefits from the Java
-ecosystem which, amongst many things, includes professional tools for component
-(or application) life-cycle management.
+communication between separate processes. These types of interfaces are often
+the `source of much agony`_ because they place very specific demands on the
+environment in which they run. 
+
+Renjin also benefits from the Java ecosystem which, amongst many things,
+includes professional tools for component (or application) life-cycle
+management. Think of `Apache Maven`_ as a software project management tool for
+building components (i.e. artifacts in Maven parlance) and managing dependencies
+as well as the likes of Artifactory_ and Nexus_ for repository management.
 
 Another advantage of Renjin is that no extra sauce is required to enable the
 R/Java interface. Packages like *rJava* and *RCaller* require that you litter
@@ -55,6 +64,10 @@ See http://www.renjin.org for more information on Renjin.
 .. _rJava: http://www.rforge.net/rJava/
 .. _RCaller: https://code.google.com/p/rcaller/
 .. _JRI: http://www.rforge.net/JRI
+.. _source of much agony: http://stackoverflow.com/tags/rjava/hot
+.. _Apache Maven: http://maven.apache.org
+.. _Artifactory: http://www.jfrog.com
+.. _Nexus: http://www.sonatype.org/nexus/
 
 Prerequisites
 -------------
@@ -62,9 +75,7 @@ Prerequisites
 For the examples in this guide you will generally only need a Java SE
 Development Kit (JDK). We recommend that you install Oracle's JDK version 6 or
 7. To create Renjin extensions, as described in the chapter
-:doc:`writing-renjin-extensions`, you will also need `Apache Maven`_ 3+.
-
-.. _Apache Maven: http://maven.apache.org
+:doc:`writing-renjin-extensions`, you will also need at least version 3 of Maven.
 
 .. _sec-setting-up-a-java-project-for-renjin:
 
