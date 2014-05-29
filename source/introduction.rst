@@ -5,21 +5,66 @@ Introduction
 
 This guide intended for Java developers who wish to call R code from a Java
 application, webserver, or other project. This guide is for Renjin version
-|release|. In the following examples, replace ``RENJIN_VERSION`` with
 |release|.
 
 .. The approach is generally the same for other JVM languages such as Scala,
 .. Clojure, JRuby, etc, but users of those languages will need to make some mental
 .. translation from Java syntax to their own.
 
-Before we start, it is good to realize that in these examples we are not
-*calling R* as in GNU R. Technically, we have statements written in the
-syntax of the R programming language and we are executing these statements using
-the interpreter provided by Renjin. This is what makes Renjin different
-from packages like rJava_ and rcaller_. 
+About Renjin
+------------
 
+Renjin is an interpreter for the R programming language for statistical
+computing written in Java much like JRuby_ and Jython_ are for the Ruby and
+Python programming languages. The official `R project`_, hereafter referred to
+as *GNU R*, is the reference implementation for the R language and Renjin's
+current code base is derived from GNU R version 2.14.2.
+
+The goal of Renjin is to eventually be compatible with GNU R such that most
+existing R language programs will run in Renjin without the need to make any
+changes to the code. Needless to say, Renjin is currently not 100% compatible
+with GNU R so your mileage may vary.
+
+Using R from Java or visa versa is not new: there is the rJava_ package for GNU
+R that allows R code to call Java methods and there is the RCaller_ package to
+call R from Java which is similar to the JRI_ package (now shipped as part of
+*rJava*). *JRI* loads the R dynamic library into Java and provides a Java API to
+the R functionality. *RCaller* works a little different by running R as a
+separate process that the package communicates with. Finally, *rJava* using the
+Java Native Interface (JNI) to enable R to call Java applications running in the
+JVM.
+
+The biggest advantage of Renjin is that the R interpreter itself is a Java
+module which can be seamlessly integrated into any Java application. This
+dispenses with the need to load dynamic libraries or to provide some form of
+communication between separate processes. Renjin also benefits from the Java
+ecosystem which, amongst many things, includes professional tools for component
+(or application) life-cycle management.
+
+Another advantage of Renjin is that no extra sauce is required to enable the
+R/Java interface. Packages like *rJava* and *RCaller* require that you litter
+your code with special commands that are part of their API. As the chapter
+:doc:`importing-java-classes-in-r-code` shows, Renjin provides direct access to
+Java methods using an interface that is completely unobtrusive.
+
+See http://www.renjin.org for more information on Renjin.
+
+.. _JRuby: http://www.jruby.org
+.. _Jython: http://www.jython.org
+.. _R project: http://www.r-project.org
 .. _rJava: http://www.rforge.net/rJava/
-.. _rcaller: https://code.google.com/p/rcaller/
+.. _RCaller: https://code.google.com/p/rcaller/
+.. _JRI: http://www.rforge.net/JRI
+
+Prerequisites
+-------------
+
+For the examples in this guide you will generally only need a Java SE
+Development Kit (JDK). We recommend that you install Oracle's JDK version 6 or
+7. To create Renjin extensions, as described in the chapter
+:doc:`writing-renjin-extensions`, you will also need `Apache Maven`_ 3+.
+
+.. _Apache Maven: http://maven.apache.org
 
 .. _sec-setting-up-a-java-project-for-renjin:
 
@@ -30,7 +75,7 @@ To use Renjin in a Java application you will need to download the *Renjin
 Script Engine* and its dependencies. For your convenience these can be
 downloaded as a single JAR file called::
 
-    renjin-script-engine-RENJIN_VERSION-jar-with-dependencies.jar
+    renjin-script-engine-0.7.0-RC7-jar-with-dependencies.jar
     
 from the `Renjin Script Engine module`_ in Renjin's build server.
 
@@ -52,7 +97,7 @@ your project:
      <dependency>
        <groupId>org.renjin</groupId>
        <artifactId>renjin-script-engine</artifactId>
-       <version>RENJIN_VERSION</version>
+       <version>0.7.0-RC7</version>
      </dependency>
    </dependencies>
 
@@ -196,3 +241,4 @@ Inside your R code you can now simply attach this package to the search path
 using the ``library(exptest)`` statement.
 
 .. _Comprehensive R Archive Network: http://cran.r-project.org
+.. vim: tw=80

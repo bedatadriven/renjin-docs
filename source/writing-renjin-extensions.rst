@@ -22,9 +22,9 @@ your R code. You can use Javadoc to document your Java classes and methods.
 Package directory layout
 ------------------------
 
-Like R packages, the files in a Renjin package must be organized in a directory
-structure that adheres to the `Maven standard directory layout`_. A directory
-layout that will cover most Renjin packages is as follows::
+The files in a Renjin package must be organized in a directory structure that
+adheres to the `Maven standard directory layout`_. A directory layout that will
+cover most Renjin packages is as follows::
 
     projectdir/
         src/
@@ -196,6 +196,43 @@ mvn deploy
 mvn clean
     clean the project's working directory after a build (can also be combined
     with one of the previous commands, for example: ``mvn clean install``)
+
+Understanding test results
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When you run ``mvn test`` within the directory that holds the POM file (i.e.
+the root directory of your package), Maven will execute both the Java and R
+unit tests and output various bits of information including the test results.
+The results for the Java tests are summarized in a section marked with::
+
+    -------------------------------------------------------
+     T E S T S
+    -------------------------------------------------------
+
+and which will summarize the test results like::
+
+    Results :
+
+    Tests run: 5, Failures: 1, Errors: 0, Skipped: 0
+
+The results of the R tests are summarized in a section marked with::
+
+    -------------------------------------------------------
+     R E N J I N   T E S T S
+    -------------------------------------------------------
+
+The R tests are summarized per R source file which will look similar to the
+following example::
+
+    Running tests in /home/foobar/mypkg/src/test/R
+    Running function_test.R
+    No default packages specified
+    Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.898 
+
+Note that the number of tests run is equal to the number of ``test.*``
+functions in the R source file + 1 as running the test file is also counted as
+a test. The next section explains how to use the functionality of Renjin's
+*hamcrest* package to write unit tests.
 
 .. _lower case letters and no strange symbols: http://maven.apache.org/guides/mini/guide-naming-conventions.html
 
