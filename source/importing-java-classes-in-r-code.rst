@@ -7,11 +7,12 @@ Importing Java classes into R code
     pair: Renjin function; import()
 
 A true testament of the level of integration of Java and R in Renjin is the
-ability to directly access Java classes from R code. Renjin introduces the
-`import()` function which adds a Java class to the environment from which it is
-called. In the section :ref:`sec-pushing-data-from-java-to-r` in the previous
-chapter we had already seen how a Java class could be put into the global
-environment of the R session.
+ability to directly access (public!) Java classes and methods from R code.
+Renjin introduces the ``import()`` function which adds a Java class to the
+environment from which it is called. In the section
+:ref:`sec-pushing-data-from-java-to-r` in the previous chapter we had already
+seen how a Java class could be put into the global environment of the R
+session.
 
 Consider the following sample R script:
 

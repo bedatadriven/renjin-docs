@@ -220,7 +220,7 @@ and evaluate the script using the following snippet:
 
 .. code-block:: java
 
-    engine.eval(new java.io.FileReader("script.R"))
+    engine.eval(new java.io.FileReader("script.R"));
 
 Using CRAN packages in Renjin
 -----------------------------

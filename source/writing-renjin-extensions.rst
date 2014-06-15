@@ -197,44 +197,66 @@ mvn clean
     clean the project's working directory after a build (can also be combined
     with one of the previous commands, for example: ``mvn clean install``)
 
-Understanding test results
-~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When you run ``mvn test`` within the directory that holds the POM file (i.e.
-the root directory of your package), Maven will execute both the Java and R
-unit tests and output various bits of information including the test results.
-The results for the Java tests are summarized in a section marked with::
+Package NAMESPACE file
+----------------------
 
-    -------------------------------------------------------
-     T E S T S
-    -------------------------------------------------------
+Since R version 2.14, packages are required to have a ``NAMESPACE`` file and the
+same holds for Renjin. Because of dynamic searching for objects in R, the use of
+a ``NAMESPACE`` file is good practice anyway. The ``NAMESPACE`` file is used to
+explicitly define which functions should be *imported* into the package's
+namespace and which functions the package exposes (i.e. *exports*) to other
+packages. Using this file, the package developer controls how his or her package
+finds functions.
 
-and which will summarize the test results like::
+Usage of the ``NAMESPACE`` in Renjin is almost exactly the same as in GNU R
+save for two differences:
 
-    Results :
+1. the directives related to S4 classes are not yet supported by Renjin and
+2. Renjin accepts the directive ``importClass()`` for importing Java classes
+   into the package namespace. 
 
-    Tests run: 5, Failures: 1, Errors: 0, Skipped: 0
+Here is an overview of the namespace directives that Renjin supports:
 
-The results of the R tests are summarized in a section marked with::
+``export(f)`` or ``export(f, g)``
+    Export an object ``f`` (singular form) or multiple objects ``f`` and ``g``
+    (plural form). You can add as many objects to this directive as you like.
 
-    -------------------------------------------------------
-     R E N J I N   T E S T S
-    -------------------------------------------------------
+``exportPattern("^[^\\.]")``
+    Export all objects whose name does not start with a period ('.').
+    Although any regular expression can be used in this directive, this is by
+    far the most common one. It is considered to be good practice not to use
+    this directive and to explicitly export objects using the ``export()``
+    directive.
 
-The R tests are summarized per R source file which will look similar to the
-following example::
+``import(foo)`` or ``import(foo, bar)``
+    Import all exported objects from the package named ``foo`` (and ``bar``
+    in the plural form). Like the ``export()`` directive, you can add as many
+    objects as you like to this directive.
 
-    Running tests in /home/foobar/mypkg/src/test/R
-    Running function_test.R
-    No default packages specified
-    Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.898 
+``importFrom(foo, f)`` or ``importFrom(foo, f, g)``
+    Import only object ``f`` (and ``g`` in the plural form) from the package
+    named ``foo``.
+    
+``S3method(print, foo)``
+    Register a print (S3) method for the ``foo`` class. This ensures that other
+    packages understand that you provide a function ``print.foo()`` that is a
+    print method for class ``foo``. The ``print.foo()`` does not need to be
+    exported.
 
-Note that the number of tests run is equal to the number of ``test.*``
-functions in the R source file + 1 as running the test file is also counted as
-a test. The next section explains how to use the functionality of Renjin's
-*hamcrest* package to write unit tests.
+``importClass(com.acme.myclass)``
+    A namespace directive which is unique to Renjin and which allows Java
+    classes to be imported into the package namespace. This directive is
+    actually a function which does the same as Renjin's ``import()`` function
+    that was introduced in the chapter :doc:`importing-java-classes-in-r-code`.
 
-.. _lower case letters and no strange symbols: http://maven.apache.org/guides/mini/guide-naming-conventions.html
+To summarize: the R functions in your package have access to all R functions
+defined within your package (also those that are not explicitely exported) as
+well as the Java classes imported into the package names using the
+``importClass`` directive. Other packages only have access to the R objects
+that your package exports as well as to the public Java classes. Since Java has
+its own mechanism to control the visibility of classes, there is no
+``exportClass`` directive in the ``NAMESPACE`` file.
 
 Using the *hamcrest* package to write unit tests
 ------------------------------------------------
@@ -356,3 +378,44 @@ An object is assumed to inherit from a class if ``inherits(actual, expected)`` i
 .. _hamcrest.org: https://code.google.com/p/hamcrest/wiki/Tutorial
 .. _Wikipedia article on Hamcrest: http://en.wikipedia.org/wiki/Hamcrest
 .. _testthat: http://cran.r-project.org/web/packages/testthat/index.html
+
+Understanding test results
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When you run ``mvn test`` within the directory that holds the POM file (i.e.
+the root directory of your package), Maven will execute both the Java and R
+unit tests and output various bits of information including the test results.
+The results for the Java tests are summarized in a section marked with::
+
+    -------------------------------------------------------
+     T E S T S
+    -------------------------------------------------------
+
+and which will summarize the test results like::
+
+    Results :
+
+    Tests run: 5, Failures: 1, Errors: 0, Skipped: 0
+
+The results of the R tests are summarized in a section marked with::
+
+    -------------------------------------------------------
+     R E N J I N   T E S T S
+    -------------------------------------------------------
+
+The R tests are summarized per R source file which will look similar to the
+following example::
+
+    Running tests in /home/foobar/mypkg/src/test/R
+    Running function_test.R
+    No default packages specified
+    Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.898 
+
+Note that the number of tests run is equal to the number of ``test.*``
+functions in the R source file + 1 as running the test file is also counted as
+a test. The next section explains how to use the functionality of Renjin's
+*hamcrest* package to write unit tests.
+
+.. _lower case letters and no strange symbols: http://maven.apache.org/guides/mini/guide-naming-conventions.html
+
+
