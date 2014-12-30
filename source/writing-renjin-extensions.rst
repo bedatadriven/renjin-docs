@@ -413,8 +413,7 @@ following example::
 
 Note that the number of tests run is equal to the number of ``test.*``
 functions in the R source file + 1 as running the test file is also counted as
-a test. The next section explains how to use the functionality of Renjin's
-*hamcrest* package to write unit tests.
+a test. 
 
 .. _lower case letters and no strange symbols: http://maven.apache.org/guides/mini/guide-naming-conventions.html
 
