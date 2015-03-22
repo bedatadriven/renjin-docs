@@ -90,7 +90,7 @@ downloaded as a single JAR file called::
     
 from the `Renjin Script Engine module`_ in Renjin's build server.
 
-.. _Renjin Script Engine module: http://build.bedatadriven.com/job/renjin/lastSuccessfulBuild/org.renjin$renjin-script-engine/
+.. _Renjin Script Engine module: http://nexus.bedatadriven.com/content/groups/public/org/renjin/renjin-script-engine/
 
 .. rubric:: Eclipse/IntelliJ projects
 
