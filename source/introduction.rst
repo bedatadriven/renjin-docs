@@ -124,6 +124,9 @@ For this to work you will also need to add BeDataDriven's public repository to y
       </repository>
     </repositories>
 
+You can use ``RELEASE`` instead of ``0.7.0-RC7`` in the project file to use the
+very latest versions of the Renjin components.
+
 Evaluating R language code
 --------------------------
 
