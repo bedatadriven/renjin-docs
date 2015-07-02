@@ -128,6 +128,14 @@ packages:
             </repository>
         </repositories>
 
+        <pluginRepositories>
+            <pluginRepository>
+                <id>bedatadriven</id>
+                <name>bedatadriven public repo</name>
+                <url>http://nexus.bedatadriven.com/content/groups/public/</url>
+            </pluginRepository>
+        </pluginRepositories>
+
         <build>
             <plugins>
                 <plugin>
