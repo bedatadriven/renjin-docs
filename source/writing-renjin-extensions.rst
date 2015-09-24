@@ -148,7 +148,7 @@ packages:
                             <goals>
                                 <goal>namespace-compile</goal>
                             </goals>
-                            <phase>compile</phase>
+                            <phase>process-classes</phase>
                         </execution>
                         <execution>
                             <id>test</id>
@@ -264,7 +264,7 @@ well as the Java classes imported into the package names using the
 ``importClass`` directive. Other packages only have access to the R objects
 that your package exports as well as to the public Java classes. Since Java has
 its own mechanism to control the visibility of classes, there is no
-``exportClass`` directive in the ``NAMESPACE`` file.
+``exportClass`` directive in the ``NAMESPACE`` file.s
 
 Using the *hamcrest* package to write unit tests
 ------------------------------------------------
