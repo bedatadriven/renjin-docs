@@ -124,7 +124,7 @@ packages:
             <repository>
                 <id>bedatadriven</id>
                 <name>bedatadriven public repo</name>
-                <url>http://nexus.bedatadriven.com/content/groups/public/</url>
+                <url>https://nexus.bedatadriven.com/content/groups/public/</url>
             </repository>
         </repositories>
 
@@ -132,7 +132,7 @@ packages:
             <pluginRepository>
                 <id>bedatadriven</id>
                 <name>bedatadriven public repo</name>
-                <url>http://nexus.bedatadriven.com/content/groups/public/</url>
+                <url>https://nexus.bedatadriven.com/content/groups/public/</url>
             </pluginRepository>
         </pluginRepositories>
 

@@ -90,7 +90,7 @@ downloaded as a single JAR file called::
     
 from the `Renjin Script Engine module`_ in Renjin's build server.
 
-.. _Renjin Script Engine module: http://nexus.bedatadriven.com/content/groups/public/org/renjin/renjin-script-engine/
+.. _Renjin Script Engine module: https://nexus.bedatadriven.com/content/groups/public/org/renjin/renjin-script-engine/
 
 .. rubric:: Eclipse/IntelliJ projects
 
@@ -120,7 +120,7 @@ For this to work you will also need to add BeDataDriven's public repository to y
       <repository>
         <id>bedatadriven</id>
         <name>bedatadriven public repo</name>
-        <url>http://nexus.bedatadriven.com/content/groups/public/</url>
+        <url>https://nexus.bedatadriven.com/content/groups/public/</url>
       </repository>
     </repositories>
 
