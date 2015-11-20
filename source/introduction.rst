@@ -246,7 +246,7 @@ repository as described in the section
     <dependency>
         <groupId>org.renjin.cran</groupId>
         <artifactId>exptest</artifactId>
-        <version>1.0</version>
+        <version>1.2-b214</version>
     </dependency>
 
 You will find this information on the package detail page as well. For this
