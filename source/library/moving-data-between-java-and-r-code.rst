@@ -4,7 +4,7 @@
 Moving data between Java and R code
 ===================================
 
-If you read the :doc:`introduction` to this guide you already know how to
+If you read the :doc:`evaluating` to this guide you already know how to
 execute R code from a Java application. In this chapter we will take things a
 little further and explain how you can move data between Java and R code.
 
@@ -343,7 +343,7 @@ code into our Java application. A typical scenario is one where an R script
 performs a calculation and the result is pulled into the Java application for
 further processing.
 
-Using the Renjin Script Engine as introduced in the :doc:`introduction`, we can
+Using the Renjin Script Engine as introduced in the :doc:`evaluating`, we can
 store the result of a calculation from R into a Java object. By default, the
 ``eval()`` method of :java:ref:`javax.script.ScriptEngine` returns an
 :java:ref:`Object <java.lang.Object>`, i.e. Java's object superclass. We can

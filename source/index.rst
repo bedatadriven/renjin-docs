@@ -12,8 +12,7 @@ Renjin Documentation
 
    introduction
    interactive/index
-   embedding/index
-   moving-data-between-java-and-r-code
+   library/index
    importing-java-classes-in-r-code
    writing-renjin-extensions
    renjin-java-api-specification.rst
