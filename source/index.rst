@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Renjin developer documentation
+Renjin Documentation
 ==============================
 
 .. toctree::
@@ -11,6 +11,7 @@ Renjin developer documentation
    :maxdepth: 3
 
    introduction
+   embedding/index
    moving-data-between-java-and-r-code
    importing-java-classes-in-r-code
    writing-renjin-extensions
