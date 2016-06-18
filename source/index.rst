@@ -4,13 +4,14 @@
    contain the root `toctree` directive.
 
 Renjin Documentation
-==============================
+====================
 
 .. toctree::
    :numbered:
    :maxdepth: 3
 
    introduction
+   interactive/index
    embedding/index
    moving-data-between-java-and-r-code
    importing-java-classes-in-r-code
