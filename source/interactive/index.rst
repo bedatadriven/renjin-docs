@@ -2,6 +2,9 @@
 Using Renjin Interactively
 ==========================
 
+.. index::
+   single: REPL
+
 Though Renjin's principle goal is to make it easier to embed R code 
 in existing systems, it can also be used as an interactive 
 Read-Eval-Print-Loop (REPL) similar to that of GNU R.
@@ -27,6 +30,10 @@ In GNU R, you must first run ``install.packages()``, which will download
 and build a package from source. After the package is installed, then it can
 be loaded with a call to ``library()``.
 
+.. index::
+   pair: R function; library()
+   pair: R function; install.packages()
+
 From within Renjin's REPL, there is no ``install.packages()`` function: the 
 first time you try to load a package with ``library()``, Renjin will 
 check the repository for a package with the matching name and download it to 
@@ -38,4 +45,6 @@ http://packages.renjin.org. The packages in this repository are
 built and packaged for use with Renjin. Not all packages can be built for
 Renjin so please consult the repository to see if your favorite package is
 available for Renjin.
+
+.. _Comprehensive R Archive Network: https://cran.r-project.org
 

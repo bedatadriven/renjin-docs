@@ -115,6 +115,9 @@ Understanding Renjin and package versions
 We version two things: Renjin itself and the individual extension packages which
 we build for Renjin.
 
+.. index::
+   single: version
+
 Versions and builds of Renjin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
