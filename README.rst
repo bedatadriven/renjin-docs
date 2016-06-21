@@ -30,7 +30,7 @@ and to make the PDF version:
 Copyright
 ---------
 
-Copyright 2014, BeDataDriven_.
+Copyright 2014-2016, BeDataDriven_.
 
 .. _Sphinx: http://sphinx-doc.org/
 .. _Read The Docs: http://www.readthedocs.org

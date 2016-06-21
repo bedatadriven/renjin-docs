@@ -3,7 +3,7 @@
 Introduction
 ============
 
-This guide covers Renjin version |release| and is aimed at developers looking
+This guide covers Renjin version |version| and is aimed at developers looking
 to:
 
 1. integrate R code in their Java applications and to exchange data between Java
@@ -20,8 +20,7 @@ About Renjin
 Renjin is an interpreter for the R programming language for statistical
 computing written in Java much like JRuby_ and Jython_ are for the Ruby and
 Python programming languages. The official `R project`_, hereafter referred to
-as *GNU R*, is the reference implementation for the R language and Renjin's
-current code base is derived from GNU R version 2.14.2.
+as *GNU R*, is the reference implementation for the R language.
 
 The goal of Renjin is to eventually be compatible with GNU R such that most
 existing R language programs will run in Renjin without the need to make any
@@ -73,21 +72,21 @@ Prerequisites
 -------------
 
 For the examples in this guide you will generally only need a Java SE
-Development Kit (JDK). We recommend that you install Oracle's JDK version 6 or
-7. To create Renjin extensions, as described in the chapter
+Development Kit (JDK). We recommend that you install Oracle's JDK version 7 or
+higher. To create Renjin extensions, as described in the chapter
 :doc:`writing-renjin-extensions`, you will also need at least version 3 of Maven.
 
+.. _sec-using-r-packages-in-renjin:
 
-
-Using CRAN packages in Renjin
------------------------------
+Using CRAN and Bioconductor packages in Renjin
+----------------------------------------------
 
 GNU R packages can't be used directly in Renjin. As a service, BeDataDriven
-provides a repository with all CRAN (the `Comprehensive R Archive Network`_)
-packages at http://packages.renjin.org. The packages in this repository are
-built and packaged for use with Renjin. Not all packages can be built for
-Renjin so please consult the repository to see if your favorite package is
-available for Renjin.
+provides a repository with all CRAN (the `Comprehensive R Archive Network`_) and
+`Bioconductor`_ packages at http://packages.renjin.org. The packages in this
+repository are built and packaged for use with Renjin. Not all packages can be
+built for Renjin so please consult the repository to see if your favorite
+package is available for Renjin.
 
 If you use Maven you can include a package to your project by adding it as a
 dependency. For example, to include the *exptest* package you add the following
@@ -109,4 +108,61 @@ Inside your R code you can now simply attach this package to the search path
 using the ``library(exptest)`` statement.
 
 .. _Comprehensive R Archive Network: http://cran.r-project.org
+
+Understanding Renjin and package versions
+-----------------------------------------
+
+We version two things: Renjin itself and the individual extension packages which
+we build for Renjin.
+
+Versions and builds of Renjin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Renjin version number consists of two pieces of information: the major
+version number and the build number:
+
+.. _fig-renjin-version:
+
+.. figure:: /images/renjin-version.png
+
+    Renjin version numbering
+
+Every time we commit a change to `Renjin's source on GitHub`_, a build job is
+automatically triggered on our build server which assigns the build number to
+the Renjin version number. If the build succeeds, the artifacts are deployed to
+our public repository.
+
+The build number in Renjin's version number always increases and is independent
+of the major version (i.e. it isn't reset to 1 when we increase the major
+version).
+
+.. _Renjin's source on GitHub: https://github.com/bedatadriven/renjin 
+
+Package versions and builds
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+R extension packages from CRAN and Bioconductor have their own version numbers
+which we also use in Renjin. Depending on what changes were committed to
+Renjin's source, we will manually trigger a build of packages, either all 10000+
+of them or a random selection, to assess the effect of the changes on the test
+results.
+
+Following the explanation in `this blog post`_, to fully reference packages in
+Renjin one would use the following format:
+
+.. _fig-package-version:
+
+.. figure:: /images/package-version.png
+
+    Version numbering of Renjin-compatible extension packages
+
+The labels at the top correspond to the fields in a Maven project (POM) file
+whereas the bottom labels explain how package references are constructed. The
+package detail page in Renjin's package repository browser tells you how to load
+extension packages from the command line or using a POM file (see the section
+:ref:`sec-using-r-packages-in-renjin`).
+
+.. _this blog post: http://www.renjin.org/blog/2015-09-14-new-packages-renjin-org.html
+
 .. vim: tw=80
+
