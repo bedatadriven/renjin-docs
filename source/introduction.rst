@@ -20,8 +20,7 @@ About Renjin
 Renjin is an interpreter for the R programming language for statistical
 computing written in Java much like JRuby_ and Jython_ are for the Ruby and
 Python programming languages. The official `R project`_, hereafter referred to
-as *GNU R*, is the reference implementation for the R language and Renjin's
-current code base is derived from GNU R version 2.14.2.
+as *GNU R*, is the reference implementation for the R language.
 
 The goal of Renjin is to eventually be compatible with GNU R such that most
 existing R language programs will run in Renjin without the need to make any
@@ -69,44 +68,6 @@ See http://www.renjin.org for more information on Renjin.
 .. _Artifactory: http://www.jfrog.com
 .. _Nexus: http://www.sonatype.org/nexus/
 
-Prerequisites
--------------
-
-For the examples in this guide you will generally only need a Java SE
-Development Kit (JDK). We recommend that you install Oracle's JDK version 6 or
-7. To create Renjin extensions, as described in the chapter
-:doc:`writing-renjin-extensions`, you will also need at least version 3 of Maven.
-
-
-
-Using CRAN packages in Renjin
------------------------------
-
-GNU R packages can't be used directly in Renjin. As a service, BeDataDriven
-provides a repository with all CRAN (the `Comprehensive R Archive Network`_)
-packages at http://packages.renjin.org. The packages in this repository are
-built and packaged for use with Renjin. Not all packages can be built for
-Renjin so please consult the repository to see if your favorite package is
-available for Renjin.
-
-If you use Maven you can include a package to your project by adding it as a
-dependency. For example, to include the *exptest* package you add the following
-to your project's ``pom.xml`` file (don't forget to add BeDataDriven's public
-repository as described in the section
-:ref:`sec-setting-up-a-java-project-for-renjin`):
-
-.. code-block:: xml
-
-    <dependency>
-        <groupId>org.renjin.cran</groupId>
-        <artifactId>exptest</artifactId>
-        <version>1.2-b214</version>
-    </dependency>
-
-You will find this information on the package detail page as well. For this
-example this page is at http://packages.renjin.org/packages/exptest.html.
-Inside your R code you can now simply attach this package to the search path
-using the ``library(exptest)`` statement.
 
 .. _Comprehensive R Archive Network: http://cran.r-project.org
 .. vim: tw=80
