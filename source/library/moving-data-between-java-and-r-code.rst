@@ -1,6 +1,8 @@
 .. The default language for highlighting source code is none:
 .. highlight:: none
 
+.. _sec-moving-data:
+
 Moving Data between Java and R Code
 ===================================
 
