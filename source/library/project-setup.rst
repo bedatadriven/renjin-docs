@@ -1,4 +1,6 @@
 
+.. _sec-project-setup:
+
 Project Setup
 -------------
 
@@ -89,8 +91,9 @@ a single JAR file called:
 
 from the Renjin website and manually add this as a dependency in Eclipse.
 
-See the `eclipse-dynamic-web-project <https://github.com/bedatadriven/renjin-examples/tree/master/eclipse-dynamic-web-project>`
-example project for more details.
+See the `eclipse-dynamic-web-project`_ example project for more details.
+
+.. _eclipse-dynamic-web-project: https://github.com/bedatadriven/renjin-examples/tree/master/eclipse-dynamic-web-project
 
 JBoss
 ~~~~~

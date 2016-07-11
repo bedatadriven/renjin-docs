@@ -8,6 +8,7 @@ Using Renjin as a Library
    :maxdepth: 3
 
    project-setup
+   using-packages
    evaluating
    moving-data-between-java-and-r-code
 

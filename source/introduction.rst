@@ -3,7 +3,7 @@
 Introduction
 ============
 
-This guide covers Renjin version |release| and is aimed at developers looking
+This guide covers Renjin version |version| and is aimed at developers looking
 to:
 
 1. integrate R code in their Java applications and to exchange data between Java
@@ -69,5 +69,63 @@ See http://www.renjin.org for more information on Renjin.
 .. _Nexus: http://www.sonatype.org/nexus/
 
 
-.. _Comprehensive R Archive Network: http://cran.r-project.org
+Understanding Renjin and package versions
+-----------------------------------------
+
+We version two things: Renjin itself and the individual extension packages which
+we build for Renjin.
+
+.. index::
+   single: version
+
+Versions and builds of Renjin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Renjin version number consists of two pieces of information: the major
+version number and the build number:
+
+.. _fig-renjin-version:
+
+.. figure:: /images/renjin-version.png
+
+    Renjin version numbering
+
+Every time we commit a change to `Renjin's source on GitHub`_, a build job is
+automatically triggered on our build server which assigns the build number to
+the Renjin version number. If the build succeeds, the artifacts are deployed to
+our public repository.
+
+The build number in Renjin's version number always increases and is independent
+of the major version (i.e. it isn't reset to 1 when we increase the major
+version).
+
+.. _Renjin's source on GitHub: https://github.com/bedatadriven/renjin 
+
+Package versions and builds
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+R extension packages from CRAN and Bioconductor have their own version numbers
+which we also use in Renjin. Depending on what changes were committed to
+Renjin's source, we will manually trigger a build of packages, either all 10000+
+of them or a random selection, to assess the effect of the changes on the test
+results.
+
+Following the explanation in `this blog post`_, to fully reference packages in
+Renjin one would use the following format:
+
+.. _fig-package-version:
+
+.. figure:: /images/package-version.png
+
+    Version numbering of Renjin-compatible extension packages
+
+The labels at the top correspond to the fields in a Maven project (POM) file
+whereas the bottom labels explain how package references are constructed. The
+package detail page in Renjin's package repository browser tells you how to load
+extension packages from the command line or using a POM file (see the section
+:ref:`sec-using-r-packages-in-renjin`).
+
+.. _this blog post: http://www.renjin.org/blog/2015-09-14-new-packages-renjin-org.html
+
 .. vim: tw=80
+
