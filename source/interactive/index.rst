@@ -26,7 +26,7 @@ Installation
 Visit the `downloads page <http://www.renjin.org/downloads.html>`_ on renjin.org.
 
 
-Using packages
+Using Packages
 --------------
 
 There are some differences between the way Renjin manages packages compared

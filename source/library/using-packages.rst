@@ -1,5 +1,5 @@
 
-Using packages
+Using Packages
 --------------
 
 When using the Renjin Script Engine, R packages are treated almost exactly

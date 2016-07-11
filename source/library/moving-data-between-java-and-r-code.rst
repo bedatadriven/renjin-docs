@@ -1,7 +1,7 @@
 .. The default language for highlighting source code is none:
 .. highlight:: none
 
-Moving data between Java and R code
+Moving Data between Java and R Code
 ===================================
 
 If you read the :doc:`evaluating` to this guide you already know how to
@@ -20,7 +20,7 @@ section and head straight to the section :ref:`sec-pulling-data-from-r-into-java
 
 .. _sec-java-developer-guide-to-r-objects:
 
-A Java developer's guide to R objects
+A Java Developer's Guide to R Objects
 -------------------------------------
 
 R has a number of objects types that are referred to as *basic types*. Of these,

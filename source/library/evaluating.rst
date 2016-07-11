@@ -1,6 +1,6 @@
 
 
-Evaluating R language code
+Evaluating R Language Code
 --------------------------
 
 The best way to call R from Java is to use the javax.scripting_ interfaces.
