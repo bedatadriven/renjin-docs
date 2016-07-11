@@ -44,7 +44,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Renjin'
-copyright = u'2014, BeDataDriven'
+copyright = u'2016, BeDataDriven'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
