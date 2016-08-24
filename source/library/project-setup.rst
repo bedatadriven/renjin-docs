@@ -112,15 +112,16 @@ a specific ``module.xml`` file:
       </dependencies>
     </module>
 
-DataStax Spark
-~~~~~~~~~~~~~~
 
-The `dse` command line tool requires you to explicitly specify the dependencies
+Spark
+~~~~~
+
+The `spark-submit` command line tool requires you to explicitly specify the dependencies
 of your Spark Job. In order to avoid specifying all of Renjin's dependencies,
 as well as those of CRAN, and BioConductor packages, or your own internal
 packages, you can still use Maven (or Gradle or SBT) to automatically resolve 
 your dependencies and build a single JAR that you can pass as an argument 
-to `dse`.
+to `spark-submit` or `dse spark-submit`.
 
 .. code-block:: xml
 
@@ -150,19 +151,21 @@ to `dse`.
     </build>
     
     <repositories>
-      <!-- Renjin and datastax repositories -->
+      <!-- Renjin and Spark/DataStax repositories -->
     </repositories>
      
-See the `datastax/SparkBuildExamples`_ repository for a complete example.
+See the `renjin-spark-executor`_ project or the 
+`datastax/SparkBuildExamples`_ repository from DataStax for complete examples.
 
+.. _renjin-spark-executor: https://github.com/onetapbeyond/renjin-spark-executor/tree/master/examples/java/hello-world
 .. _datastax/SparkBuildExamples: https://github.com/datastax/SparkBuildExamples
 
-You can then submit your Job as follows:
+You can then submit your job as follows:
 
 .. code-block:: sh
 
    mvn clean package
-   dse spark-submit --class org.renjin.ExampleJob target/renjin-exmaple-0.1-dep.jar
+   spark-submit --class org.renjin.ExampleJob target/renjin-example-0.1-dep.jar
 
 
 
