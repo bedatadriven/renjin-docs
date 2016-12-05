@@ -16,13 +16,13 @@ Maven
 For projects organized with Apache Maven, you can simply add 
 Renjin's Script Engine as dependency to your project:
 
-.. code-block:: xml
+.. parsed-literal::
 
    <dependencies>
      <dependency>
        <groupId>org.renjin</groupId>
        <artifactId>renjin-script-engine</artifactId>
-       <version>|VERSION|</version>
+       <version>\ |release|\ </version>
      </dependency>
    </dependencies>
 
@@ -38,7 +38,7 @@ For this to work you will also need to add BeDataDriven's public repository to y
       </repository>
     </repositories>
 
-You can use ``RELEASE`` instead of ``|VERSION|`` in the project file to use the
+You can use ``RELEASE`` instead of |VERSION| in the project file to use the
 very latest versions of the Renjin components.
 
 
