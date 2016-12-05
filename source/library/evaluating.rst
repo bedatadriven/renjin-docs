@@ -29,7 +29,7 @@ be used for all the examples in this guide.
         // create a script engine manager:
         RenjinScriptEngineFactory factory = new RenjinScriptEngineFactory();
         // create a Renjin engine:
-        ScriptEngine engine = factory.getEngine();
+        ScriptEngine engine = factory.getScriptEngine();
 
         // ... put your Java code here ...
       }
