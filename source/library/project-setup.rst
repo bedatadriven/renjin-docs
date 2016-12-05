@@ -22,7 +22,7 @@ Renjin's Script Engine as dependency to your project:
      <dependency>
        <groupId>org.renjin</groupId>
        <artifactId>renjin-script-engine</artifactId>
-       <version>\ |release|\ </version>
+       <version>\ |RELEASE|\ </version>
      </dependency>
    </dependencies>
 
