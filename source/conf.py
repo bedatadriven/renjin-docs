@@ -53,7 +53,7 @@ copyright = u'2016, BeDataDriven'
 # The short X.Y version.
 version = '0.8'
 # The full version, including alpha/beta/rc tags.
-release = '0.8.2024'
+release = '0.8.2297'
 
 rst_epilog = '.. |VERSION| replace:: %s' % release
 
