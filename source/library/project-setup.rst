@@ -22,7 +22,7 @@ Renjin's Script Engine as dependency to your project:
      <dependency>
        <groupId>org.renjin</groupId>
        <artifactId>renjin-script-engine</artifactId>
-       <version>0.8.2293</version>
+       <version>99999</version>
      </dependency>
    </dependencies>
 
@@ -54,7 +54,7 @@ For projects organized with Gradle, add the following to your ``build.gradle`` f
     }
     
     dependencies {
-      compile "org.renjin:renjin-script-engine:0.8.2293";
+      compile "org.renjin:renjin-script-engine:99999";
     }
 
 Scala Build Tool (SBT)
@@ -73,7 +73,7 @@ Renjin's Script Engine:
         name := "renjin-test",
         version := "1.0",
         scalaVersion := "2.10.6",
-        libraryDependencies += "org.renjin" % "renjin-script-engine" % "0.8.2293"
+        libraryDependencies += "org.renjin" % "renjin-script-engine" % "99999"
       )
       
 Eclipse
@@ -105,7 +105,7 @@ a specific ``module.xml`` file:
 
     <module xmlns="urn:jboss:module:1.1" name="org.renjin">
       <resources>
-        <resource-root path="renjin-script-engine-0.8.2293-jar-with-dependencies.jar"/>
+        <resource-root path="renjin-script-engine-99999-jar-with-dependencies.jar"/>
       </resources>
       <dependencies>
         <module name="javax.api"/>
@@ -136,7 +136,7 @@ to `spark-submit` or `dse spark-submit`.
       <dependency>
         <groupId>org.renjin</groupId>
         <artifactId>renjin-script-engine</artifactId>
-        <version>0.8.2293</version>
+        <version>99999</version>
       </dependency>
    
       <dependency>

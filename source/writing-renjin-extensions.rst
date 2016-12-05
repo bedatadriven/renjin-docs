@@ -102,6 +102,7 @@ packages:
 
         <properties>
             <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            <renjin.version>0.8.2297</renjin.version>
         </properties>
 
         <dependencies>
@@ -109,13 +110,13 @@ packages:
             <dependency>
                 <groupId>org.renjin</groupId>
                 <artifactId>renjin-script-engine</artifactId>
-                <version>0.7.0-RC7</version>
+                <version>${renjin.version}</version>
             </dependency>
             <!-- the hamcrest package is only required if you use it for unit tests -->
             <dependency>
                 <groupId>org.renjin</groupId>
                 <artifactId>hamcrest</artifactId>
-                <version>0.7.0-RC7</version>
+                <version>${renjin.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -141,7 +142,7 @@ packages:
                 <plugin>
                     <groupId>org.renjin</groupId>
                     <artifactId>renjin-maven-plugin</artifactId>
-                    <version>0.7.0-RC7</version>
+                    <version>${renjin.version}</version>
                     <executions>
                         <execution>
                             <id>build</id>
