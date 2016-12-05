@@ -22,7 +22,7 @@ Renjin's Script Engine as dependency to your project:
      <dependency>
        <groupId>org.renjin</groupId>
        <artifactId>renjin-script-engine</artifactId>
-       <version>0.7.0-RC7</version>
+       <version>{{ release|e }}</version>
      </dependency>
    </dependencies>
 
@@ -38,7 +38,7 @@ For this to work you will also need to add BeDataDriven's public repository to y
       </repository>
     </repositories>
 
-You can use ``RELEASE`` instead of ``0.7.0-RC7`` in the project file to use the
+You can use ``RELEASE`` instead of ``{{ release|e }}`` in the project file to use the
 very latest versions of the Renjin components.
 
 
@@ -73,7 +73,7 @@ Renjin's Script Engine:
         name := "renjin-test",
         version := "1.0",
         scalaVersion := "2.10.6",
-        libraryDependencies += "org.renjin" % "renjin-script-engine" % "0.8.1886"
+        libraryDependencies += "org.renjin" % "renjin-script-engine" % "{{ release|e }}"
       )
       
 Eclipse
@@ -105,7 +105,7 @@ a specific ``module.xml`` file:
 
     <module xmlns="urn:jboss:module:1.1" name="org.renjin">
       <resources>
-        <resource-root path="renjin-script-engine-0.8.1908-jar-with-dependencies.jar"/>
+        <resource-root path="renjin-script-engine-{{ release|e }}-jar-with-dependencies.jar"/>
       </resources>
       <dependencies>
         <module name="javax.api"/>
@@ -136,7 +136,7 @@ to `spark-submit` or `dse spark-submit`.
       <dependency>
         <groupId>org.renjin</groupId>
         <artifactId>renjin-script-engine</artifactId>
-        <version>0.8.2199</version>
+        <version>{{ release|e }}</version>
       </dependency>
    
       <dependency>
