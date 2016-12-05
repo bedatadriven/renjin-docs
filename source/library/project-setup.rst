@@ -16,13 +16,13 @@ Maven
 For projects organized with Apache Maven, you can simply add 
 Renjin's Script Engine as dependency to your project:
 
-.. parsed-literal::
+.. code-block:: xml
 
    <dependencies>
      <dependency>
        <groupId>org.renjin</groupId>
        <artifactId>renjin-script-engine</artifactId>
-       <version>\ |RELEASE|\ </version>
+       <version>0.8.2293</version>
      </dependency>
    </dependencies>
 
@@ -38,7 +38,7 @@ For this to work you will also need to add BeDataDriven's public repository to y
       </repository>
     </repositories>
 
-You can use ``RELEASE`` instead of |VERSION| in the project file to use the
+You can use ``RELEASE`` instead of ``|VERSION|`` in the project file to use the
 very latest versions of the Renjin components.
 
 
@@ -54,7 +54,7 @@ For projects organized with Gradle, add the following to your ``build.gradle`` f
     }
     
     dependencies {
-      compile "org.renjin:renjin-script-engine:|VERSION|";
+      compile "org.renjin:renjin-script-engine:0.8.2293";
     }
 
 Scala Build Tool (SBT)
@@ -73,7 +73,7 @@ Renjin's Script Engine:
         name := "renjin-test",
         version := "1.0",
         scalaVersion := "2.10.6",
-        libraryDependencies += "org.renjin" % "renjin-script-engine" % "|VERSION|"
+        libraryDependencies += "org.renjin" % "renjin-script-engine" % "0.8.2293"
       )
       
 Eclipse
@@ -105,7 +105,7 @@ a specific ``module.xml`` file:
 
     <module xmlns="urn:jboss:module:1.1" name="org.renjin">
       <resources>
-        <resource-root path="renjin-script-engine-|VERSION|-jar-with-dependencies.jar"/>
+        <resource-root path="renjin-script-engine-0.8.2293-jar-with-dependencies.jar"/>
       </resources>
       <dependencies>
         <module name="javax.api"/>
@@ -136,7 +136,7 @@ to `spark-submit` or `dse spark-submit`.
       <dependency>
         <groupId>org.renjin</groupId>
         <artifactId>renjin-script-engine</artifactId>
-        <version>|VERSION|</version>
+        <version>0.8.2293</version>
       </dependency>
    
       <dependency>
