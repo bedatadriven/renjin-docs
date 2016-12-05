@@ -22,7 +22,7 @@ Renjin's Script Engine as dependency to your project:
      <dependency>
        <groupId>org.renjin</groupId>
        <artifactId>renjin-script-engine</artifactId>
-       <version>{{ release|e }}</version>
+       <version>|VERSION|</version>
      </dependency>
    </dependencies>
 
@@ -38,7 +38,7 @@ For this to work you will also need to add BeDataDriven's public repository to y
       </repository>
     </repositories>
 
-You can use ``RELEASE`` instead of ``{{ release|e }}`` in the project file to use the
+You can use ``RELEASE`` instead of ``|VERSION|`` in the project file to use the
 very latest versions of the Renjin components.
 
 
@@ -54,7 +54,7 @@ For projects organized with Gradle, add the following to your ``build.gradle`` f
     }
     
     dependencies {
-      compile "org.renjin:renjin-script-engine:0.7.0-RC7";
+      compile "org.renjin:renjin-script-engine:|VERSION|";
     }
 
 Scala Build Tool (SBT)
@@ -73,7 +73,7 @@ Renjin's Script Engine:
         name := "renjin-test",
         version := "1.0",
         scalaVersion := "2.10.6",
-        libraryDependencies += "org.renjin" % "renjin-script-engine" % "{{ release|e }}"
+        libraryDependencies += "org.renjin" % "renjin-script-engine" % "|VERSION|"
       )
       
 Eclipse
@@ -87,7 +87,7 @@ through a point-and-click interface.
 If this isn't possible for whatever reason, you can download 
 a single JAR file called:
 
-    renjin-script-engine-0.7.0-RC7-jar-with-dependencies.jar
+    renjin-script-engine-|VERSION|-jar-with-dependencies.jar
 
 from the Renjin website and manually add this as a dependency in Eclipse.
 
@@ -105,7 +105,7 @@ a specific ``module.xml`` file:
 
     <module xmlns="urn:jboss:module:1.1" name="org.renjin">
       <resources>
-        <resource-root path="renjin-script-engine-{{ release|e }}-jar-with-dependencies.jar"/>
+        <resource-root path="renjin-script-engine-|VERSION|-jar-with-dependencies.jar"/>
       </resources>
       <dependencies>
         <module name="javax.api"/>
@@ -136,7 +136,7 @@ to `spark-submit` or `dse spark-submit`.
       <dependency>
         <groupId>org.renjin</groupId>
         <artifactId>renjin-script-engine</artifactId>
-        <version>{{ release|e }}</version>
+        <version>|VERSION|</version>
       </dependency>
    
       <dependency>
