@@ -10,15 +10,9 @@ Renjin's internals evolve.
 .. _javax.scripting: http://docs.oracle.com/javase/6/docs/technotes/guides/scripting/programmer_guide/
 
 You can create a new instance of a Renjin ScriptEngine using the
-ScriptEngineManager class and then instantiate Renjin's ScriptEngine using the
-manager's ``getEngineByName()`` method. 
+RenjinScriptEngineFactory class and then instantiate Renjin's ScriptEngine using the
+factory's ``getEngine()`` method. 
 
-.. note::
-
-    Unfortunately, ``ScriptEngineManager.getEngineByName()`` silently returns null
-    if there are any exceptions encountered during the instantiation of Renjin's
-    ScriptEngine, so you will want to check the return result and throw your own,
-    more informative, exception should the creation fail.
 
 The following code provides a template for a simple Java application that can
 be used for all the examples in this guide.
@@ -26,22 +20,29 @@ be used for all the examples in this guide.
 .. code-block:: java
 
     import javax.script.*;
+    import org.renjin.script.*;
+
     // ... add additional imports here ...
 
     public class TryRenjin {
       public static void main(String[] args) throws Exception {
         // create a script engine manager:
-        ScriptEngineManager manager = new ScriptEngineManager();
+        RenjinScriptEngineFactory factory = new RenjinScriptEngineFactory();
         // create a Renjin engine:
-        ScriptEngine engine = manager.getEngineByName("Renjin");
-        // check if the engine has loaded correctly:
-        if(engine == null) {
-            throw new RuntimeException("Renjin Script Engine not found on the classpath.");
-        }
+        ScriptEngine engine = factory.getEngine();
 
         // ... put your Java code here ...
       }
     }
+
+.. note::
+
+    We recommend using ``RenjinScriptEngineFactory`` directly, as the standard 
+    javax.script silently returns null and hides any exceptions encountered when
+    loading Renjin, making it very difficult to debug any project setup problems.
+
+    If you're using Renjin in a more generic context, you can load the engine by name
+    by calling ``ScriptEngineManager.getEngineByName("Renjin")``.
 
 With the ScriptEngine instance in hand, you can now evaluate R language source
 code, either from a String, or from a Reader interface. The following snippet, for example,
