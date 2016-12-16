@@ -57,6 +57,7 @@ For projects organized with Gradle, add the following to your ``build.gradle`` f
       compile "org.renjin:renjin-script-engine:0.8.2299";
     }
 
+
 Scala Build Tool (SBT)
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -75,6 +76,15 @@ Renjin's Script Engine:
         scalaVersion := "2.10.6",
         libraryDependencies += "org.renjin" % "renjin-script-engine" % "0.8.2299"
       )
+
+.. note::
+
+    There has been a `report`_ that the `coursier`_ plugin fails to resolve
+    Renjin's dependencies. If you encounter class path problems with the plugin,
+    try building your project without.
+
+.. _report: http://stackoverflow.com/questions/40888063/load-rdata-from-an-r-script-in-scala-using-renjin#answer-40999169
+.. _coursier: https://github.com/alexarchambault/coursier
       
 Eclipse
 ~~~~~~~
