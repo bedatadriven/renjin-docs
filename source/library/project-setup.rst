@@ -57,7 +57,7 @@ For projects organized with Gradle, add the following to your ``build.gradle`` f
       compile "org.renjin:renjin-script-engine:0.8.2300";
     }
 
-See the `renjin-gradle-example_` on GitHub for a complete example.
+See the `renjin-gradle-example`_ on GitHub for a complete example.
 
 .. _renjin-gradle-example: https://github.com/bedatadriven/renjin-gradle-example
 
