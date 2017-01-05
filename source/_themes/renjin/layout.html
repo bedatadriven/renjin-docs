@@ -12,6 +12,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  {{ metatags }}
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% block htmltitle %}
   <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
@@ -22,7 +23,7 @@
     <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
   {% endif %}
 
-  {# removed link to Google Webfonts here #}
+  {# CSS #}
 
   {# OPENSEARCH #}
   {% if not embedded %}
@@ -32,10 +33,16 @@
 
   {% endif %}
 
-  {# RTD hosts this file, but we altered it so keep this link #}
+  {# RTD hosts this file, so just load on non RTD builds #}
+  {% if not READTHEDOCS %}
     <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
+  {% endif %}
 
   {% for cssfile in css_files %}
+    <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
+  {% endfor %}
+
+  {% for cssfile in extra_css_files %}
     <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
   {% endfor %}
 
@@ -68,63 +75,72 @@
   {%- block extrahead %} {% endblock %}
 
   {# Keep modernizr in head - http://modernizr.com/docs/#installing #}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="{{ pathto('_static/js/modernizr.min.js', 1) }}"></script>
 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
-<!-- Renjin.org menu & header -->
-<nav id="nav" role="navigation">
-    <a href="#nav" title="Show navigation">Show navigation</a>
-    <a href="#" title="Hide navigation">Hide navigation</a>
-    <ul>
-        <li><a href="http://www.renjin.org/">Home</a></li>
-        <li><a href="http://www.renjin.org/downloads.html">Downloads</a></li>
-        <li><a href="http://packages.renjin.org/">Packages</a></li>
-        <li class="active"><a href="http://docs.renjin.org/">Documentation</a></li>
-        <li><a href="http://www.renjin.org/support.html">Support</a></li>
-        <li><a href="http://www.renjin.org/about.html">About</a></li>
-        <li><a href="http://www.renjin.org/blog">Blog</a></li>
-    </ul>
-</nav>
-
-<header role="banner">
-  <div class="grid">
-    <div class="medium-4 grid-item">
-      <img src="_static/img/renjin-logo-blue-on-transparant.png" alt="Renjin" class="logo" height="50" />
-    </div>
-  </div>
-</header>
-
-<!-- end Renjin.org menu & header -->
-
+  {% block extrabody %} {% endblock %}
   <div class="wy-grid-for-nav">
 
     {# SIDE NAV, TOGGLES ON MOBILE #}
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        {% include "searchbox.html" %}
-      </div>
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          {% block sidebartitle %}
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        {% set toctree = toctree(maxdepth=2, collapse=False, includehidden=True) %}
-        {% if toctree %}
-            {{ toctree }}
-        {% else %}
-            <!-- Local TOC -->
-            <div class="local-toc">{{ toc }}</div>
-        {% endif %}
+          {% if logo and theme_logo_only %}
+            <a href="{{ pathto(master_doc) }}">
+          {% else %}
+            <a href="{{ pathto(master_doc) }}" class="icon icon-home"> {{ project }}
+          {% endif %}
+
+          {% if logo %}
+            {# Not strictly valid HTML, but it's the only way to display/scale it properly, without weird scripting or heaps of work #}
+            <img src="{{ pathto('_static/' + logo, 1) }}" class="logo" />
+          {% endif %}
+          </a>
+
+          {% if theme_display_version %}
+            {%- set nav_version = version %}
+            {% if READTHEDOCS and current_version %}
+              {%- set nav_version = current_version %}
+            {% endif %}
+            {% if nav_version %}
+              <div class="version">
+                {{ nav_version }}
+              </div>
+            {% endif %}
+          {% endif %}
+
+          {% include "searchbox.html" %}
+
+          {% endblock %}
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          {% block menu %}
+            {% set toctree = toctree(maxdepth=theme_navigation_depth|int, collapse=theme_collapse_navigation, includehidden=True) %}
+            {% if toctree %}
+                {{ toctree }}
+            {% else %}
+                <!-- Local TOC -->
+                <div class="local-toc">{{ toc }}</div>
+            {% endif %}
+          {% endblock %}
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       {# MOBILE NAV, TRIGGLES SIDE NAV ON TOGGLE #}
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="{{ pathto(master_doc) }}">{{ project }}</a>
+        {% block mobile_nav %}
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="{{ pathto(master_doc) }}">{{ project }}</a>
+        {% endblock %}
       </nav>
 
 
@@ -132,8 +148,13 @@
       <div class="wy-nav-content">
         <div class="rst-content">
           {% include "breadcrumbs.html" %}
-          <div role="main">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             {% block body %}{% endblock %}
+           </div>
+           <div class="articleComments">
+            {% block comments %}{% endblock %}
+           </div>
           </div>
           {% include "footer.html" %}
         </div>
@@ -142,66 +163,6 @@
     </section>
 
   </div>
-
-<footer class="footer">
-  <div class="grid">
-    <div class="medium-4 grid-item">
-    <!--
-      <h3>Downloads</h3>
-      <p>Take a look at our download page, or choose one of our downloads directly. </p>
-      <ul>
-        <li><a href="#">Download 1</a></li>
-        <li><a href="#">Download 2</a></li>
-        <li><a href="#">Download 3</a></li>
-    </ul>
-    -->
-    </div>
-    <div class="medium-4 grid-item">
-    <!--
-      <h3>Documentation</h3>
-      <p>Take a look at our download page, or choose one of our downloads directly. </p>
-      <ul>
-        <li><a href="#">Download 1</a></li>
-        <li><a href="#">Download 2</a></li>
-      </ul>
-    -->
-    </div>
-    <div class="medium-4 grid-item">
-      <h3>Contribute</h3>
-      <p>Check out the source code for <a
-          href="https://github.com/bedatadriven/renjin">Renjin on GitHub</a> or
-      the <a href="https://github.com/bedatadriven/renjin-docs">Renjin
-          documentation on GitHub</a>.</p>
-    </div>
-    <div class="medium-4 grid-item">
-    <!--
-      <h3>Packages</h3>
-      <p>Take a look at our download page, or choose one of our downloads directly. </p>
-      <ul>
-        <li><a href="#">Newsitem 1</a></li>
-        <li><a href="#">Newsitem 2</a></li>
-        <li><a href="#">Newsitem 3</a></li>
-      </ul>
-    -->
-    </div>
-    <div class="medium-4 grid-item">
-    <!--
-      <h3>News</h3>
-      <ul>
-        <li><a href="#">Newsitem 1</a></li>
-        <li><a href="#">Newsitem 2</a></li>
-        <li><a href="#">Newsitem 3</a></li>
-      </ul>
-    -->
-    </div>
-    <div class="medium-4 grid-item">
-      <h3>Support</h3>
-      <p>Renjin is a project initiated by <a
-          href="http://www.bedatadriven.com">BeDataDriven</a>, a company that
-      provides consulting in analytics and decision support systems.</p>
-    </div>
-  </div>
-</footer>
   {% include "versions.html" %}
 
   {% if not embedded %}
@@ -212,7 +173,8 @@
             VERSION:'{{ release|e }}',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'{{ '' if no_search_suffix else file_suffix }}',
-            HAS_SOURCE:  {{ has_source|lower }}
+            HAS_SOURCE:  {{ has_source|lower }},
+            SOURCELINK_SUFFIX: '{{ sourcelink_suffix }}'
         };
     </script>
     {%- for scriptfile in script_files %}
@@ -221,8 +183,10 @@
 
   {% endif %}
 
-  {# RTD hosts this file, but we want to use the one in our theme #}
+  {# RTD hosts this file, so just load on non RTD builds #}
+  {% if not READTHEDOCS %}
     <script type="text/javascript" src="{{ pathto('_static/js/theme.js', 1) }}"></script>
+  {% endif %}
 
   {# STICKY NAVIGATION #}
   {% if theme_sticky_navigation %}
