@@ -23,7 +23,11 @@
     <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
   {% endif %}
 
+<<<<<<< HEAD
+  {# removed link to Google Webfonts here #}
+=======
   {# CSS #}
+>>>>>>> master
 
   {# OPENSEARCH #}
   {% if not embedded %}
@@ -33,10 +37,8 @@
 
   {% endif %}
 
-  {# RTD hosts this file, so just load on non RTD builds #}
-  {% if not READTHEDOCS %}
+  {# RTD hosts this file, but we altered it so keep this link #}
     <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
-  {% endif %}
 
   {% for cssfile in css_files %}
     <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
@@ -81,7 +83,33 @@
 
 <body class="wy-body-for-nav" role="document">
 
+<!-- Renjin.org menu & header -->
+<nav id="nav" role="navigation">
+    <a href="#nav" title="Show navigation">Show navigation</a>
+    <a href="#" title="Hide navigation">Hide navigation</a>
+    <ul>
+        <li><a href="http://www.renjin.org/">Home</a></li>
+        <li><a href="http://www.renjin.org/downloads.html">Downloads</a></li>
+        <li><a href="http://packages.renjin.org/">Packages</a></li>
+        <li class="active"><a href="http://docs.renjin.org/">Documentation</a></li>
+        <li><a href="http://www.renjin.org/support.html">Support</a></li>
+        <li><a href="http://www.renjin.org/about.html">About</a></li>
+        <li><a href="http://www.renjin.org/blog">Blog</a></li>
+    </ul>
+</nav>
+
+<header role="banner">
+  <div class="grid">
+    <div class="medium-4 grid-item">
+      <img src="_static/img/renjin-logo-blue-on-transparant.png" alt="Renjin" class="logo" height="50" />
+    </div>
+  </div>
+</header>
+
+<!-- end Renjin.org menu & header -->
+
   {% block extrabody %} {% endblock %}
+
   <div class="wy-grid-for-nav">
 
     {# SIDE NAV, TOGGLES ON MOBILE #}
@@ -163,6 +191,66 @@
     </section>
 
   </div>
+
+<footer class="footer">
+  <div class="grid">
+    <div class="medium-4 grid-item">
+    <!--
+      <h3>Downloads</h3>
+      <p>Take a look at our download page, or choose one of our downloads directly. </p>
+      <ul>
+        <li><a href="#">Download 1</a></li>
+        <li><a href="#">Download 2</a></li>
+        <li><a href="#">Download 3</a></li>
+    </ul>
+    -->
+    </div>
+    <div class="medium-4 grid-item">
+    <!--
+      <h3>Documentation</h3>
+      <p>Take a look at our download page, or choose one of our downloads directly. </p>
+      <ul>
+        <li><a href="#">Download 1</a></li>
+        <li><a href="#">Download 2</a></li>
+      </ul>
+    -->
+    </div>
+    <div class="medium-4 grid-item">
+      <h3>Contribute</h3>
+      <p>Check out the source code for <a
+          href="https://github.com/bedatadriven/renjin">Renjin on GitHub</a> or
+      the <a href="https://github.com/bedatadriven/renjin-docs">Renjin
+          documentation on GitHub</a>.</p>
+    </div>
+    <div class="medium-4 grid-item">
+    <!--
+      <h3>Packages</h3>
+      <p>Take a look at our download page, or choose one of our downloads directly. </p>
+      <ul>
+        <li><a href="#">Newsitem 1</a></li>
+        <li><a href="#">Newsitem 2</a></li>
+        <li><a href="#">Newsitem 3</a></li>
+      </ul>
+    -->
+    </div>
+    <div class="medium-4 grid-item">
+    <!--
+      <h3>News</h3>
+      <ul>
+        <li><a href="#">Newsitem 1</a></li>
+        <li><a href="#">Newsitem 2</a></li>
+        <li><a href="#">Newsitem 3</a></li>
+      </ul>
+    -->
+    </div>
+    <div class="medium-4 grid-item">
+      <h3>Support</h3>
+      <p>Renjin is a project initiated by <a
+          href="http://www.bedatadriven.com">BeDataDriven</a>, a company that
+      provides consulting in analytics and decision support systems.</p>
+    </div>
+  </div>
+</footer>
   {% include "versions.html" %}
 
   {% if not embedded %}
@@ -183,10 +271,8 @@
 
   {% endif %}
 
-  {# RTD hosts this file, so just load on non RTD builds #}
-  {% if not READTHEDOCS %}
+  {# RTD hosts this file, but we want to use the one in our theme #}
     <script type="text/javascript" src="{{ pathto('_static/js/theme.js', 1) }}"></script>
-  {% endif %}
 
   {# STICKY NAVIGATION #}
   {% if theme_sticky_navigation %}
