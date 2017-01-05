@@ -70,7 +70,8 @@ The following is an example of ``build.sbt`` that includes
 Renjin's Script Engine:
 
 .. code-block:: scala
-
+ 
+    // IMPORTANT: sbt may fail if http*s* is not used.
     resolvers += 
         "BeDataDriven" at "https://nexus.bedatadriven.com/content/groups/public"
 
@@ -82,14 +83,18 @@ Renjin's Script Engine:
         libraryDependencies += "org.renjin" % "renjin-script-engine" % "0.8.2310"
       )
 
+See the `renjin-sbt-example`_ on GitHub for a complete example.
+
 .. note::
 
     There has been a `report`_ that the `coursier`_ plugin fails to resolve
     Renjin's dependencies. If you encounter class path problems with the plugin,
     try building your project without.
 
+.. _renjin-sbt-example: https://github.com/bedatadriven/renjin-gradle-example
 .. _report: http://stackoverflow.com/questions/40888063/load-rdata-from-an-r-script-in-scala-using-renjin#answer-40999169
 .. _coursier: https://github.com/alexarchambault/coursier
+
       
 Eclipse
 ~~~~~~~
