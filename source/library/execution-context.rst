@@ -78,11 +78,12 @@ The following example demonstrates how a ScriptEngine instance is configured by 
 
 The ``renjin-appengine`` module provides a more complex example. 
 There, the `AppEngineContextFactory`_ class prepares a FileSystemManager that is configured
-with a LocalFileProvider subclass that provides read-only acesss to the servlet's directory.
+with a ``AppEngineLocalFileSystemProvider``_ subclass that provides read-only acesss to the servlet's directory.
 This allows R scripts access to "/WEB-INF/data/model.R", which is translated into the absolute
 path at runtime.
 
 .. _AppEngineContextFactory: https://github.com/bedatadriven/renjin/blob/87518a254c0d67788aa36e0ecb4038d25a6d9384/appengine/src/main/java/org/renjin/appengine/AppEngineContextFactory.java#L88-L88
+.. _AppEngineLocalFileSystemProvider: https://github.com/bedatadriven/renjin/blob/87518a254c0d67788aa36e0ecb4038d25a6d9384/appengine/src/main/java/org/renjin/appengine/AppEngineLocalFilesSystemProvider.java
 
 Package Loading
 ---------------
