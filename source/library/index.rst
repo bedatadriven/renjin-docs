@@ -11,6 +11,7 @@ Using Renjin as a Library
    using-packages
    evaluating
    moving-data-between-java-and-r-code
+   thread-safety
    execution-context
 
 

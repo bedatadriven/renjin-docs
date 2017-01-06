@@ -278,3 +278,8 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+javadoc_url_map = {
+    'org.renjin' : ('http://javadoc.renjin.org/latest/', 'javadoc'),
+    'java' : ('https://docs.oracle.com/javase/7/docs/api', 'javadoc')
+}

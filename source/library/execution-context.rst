@@ -3,8 +3,11 @@
 Customizing the Execution Context
 =================================
 
-Renjin's ScriptEngine implementation provides several ways to customize or limit the 
-context in which R scripts are executed with regard to:
+R code must always be evaluated in the context of a Session, with tracks the global environment,
+which packages have been loaded, etc.
+
+Each new ``ScriptEngine`` instance has it's own independent Session, and for each Session,
+Renjin allows you to customize the environment in which the R scripts are evaluated with regard to:
 
 .. contents::  :local:
 
