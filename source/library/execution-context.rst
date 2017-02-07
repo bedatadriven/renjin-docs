@@ -165,8 +165,28 @@ Such classes are loaded not through the ``PackageLoader`` mechanism but through 
         .build();
 
 
+Command-Line Arguments
+----------------------
+
+If you have an existing script that relies on the R `commandArgs()` function to obtain parameters from the
+environment, you can set these via the setCommandLineArguments method:
+
+.. code-block:: java
+
+    Session session = new SessionBuilder()
+        .withDefaultPackages()
+        .build();
+
+    session.setCommandLineArguments("/usr/bin/renjin", "X", "Y", "--args", "Z");
+
+    RenjinScriptEngineFactory factory = new RenjinScriptEngineFactory();
+    RenjinScriptEngine engine = factory.getScriptEngine(session);
+
+    engine.eval("print(commandArgs(trailingOnly = FALSE))");  // c("/usr/bin/renjin", "X", "Y", "--args", "Z")
+    engine.eval("print(commandArgs(trailingOnly = TRUE))");   // c("Z")
 
 
+Note that the Java Scripting API provides a richer API for moving values between Java and R. See :ref:`sec-moving-data`.
 
 
 
