@@ -98,7 +98,7 @@
 <header role="banner">
   <div class="grid">
     <div class="medium-4 grid-item">
-      <img src="_static/img/renjin-logo-blue-on-transparant.png" alt="Renjin" class="logo" height="50" />
+        <img src="{{ pathto('_static/img/renjin-logo-blue-on-transparant.png', 1) }}" alt="Renjin" class="logo" height="50" />
     </div>
   </div>
 </header>
@@ -192,25 +192,10 @@
 <footer class="footer">
   <div class="grid">
     <div class="medium-4 grid-item">
-    <!--
-      <h3>Downloads</h3>
-      <p>Take a look at our download page, or choose one of our downloads directly. </p>
-      <ul>
-        <li><a href="#">Download 1</a></li>
-        <li><a href="#">Download 2</a></li>
-        <li><a href="#">Download 3</a></li>
-    </ul>
-    -->
-    </div>
-    <div class="medium-4 grid-item">
-    <!--
-      <h3>Documentation</h3>
-      <p>Take a look at our download page, or choose one of our downloads directly. </p>
-      <ul>
-        <li><a href="#">Download 1</a></li>
-        <li><a href="#">Download 2</a></li>
-      </ul>
-    -->
+      <h3>Packages</h3>
+      <p>Take a look at our <a href="http://packages.renjin.org">package
+          repository browser</a> for the state of compatibility of CRAN and
+      Bioconductor packages in Renjin.</p>
     </div>
     <div class="medium-4 grid-item">
       <h3>Contribute</h3>
@@ -220,32 +205,20 @@
           documentation on GitHub</a>.</p>
     </div>
     <div class="medium-4 grid-item">
-    <!--
-      <h3>Packages</h3>
-      <p>Take a look at our download page, or choose one of our downloads directly. </p>
-      <ul>
-        <li><a href="#">Newsitem 1</a></li>
-        <li><a href="#">Newsitem 2</a></li>
-        <li><a href="#">Newsitem 3</a></li>
-      </ul>
-    -->
-    </div>
-    <div class="medium-4 grid-item">
-    <!--
-      <h3>News</h3>
-      <ul>
-        <li><a href="#">Newsitem 1</a></li>
-        <li><a href="#">Newsitem 2</a></li>
-        <li><a href="#">Newsitem 3</a></li>
-      </ul>
-    -->
-    </div>
-    <div class="medium-4 grid-item">
       <h3>Support</h3>
       <p>Renjin is a project initiated by <a
           href="http://www.bedatadriven.com">BeDataDriven</a>, a company that
-      provides consulting in analytics and decision support systems.</p>
+      provides consulting in analytics and decision support systems. Read about
+      our <a href="http://www.renjin.org/support.html">support options for Renjin</a>.</p>
     </div>
+    <!--
+    <div class="medium-4 grid-item">
+    </div>
+    <div class="medium-4 grid-item">
+    </div>
+    <div class="medium-4 grid-item">
+    </div>
+    -->
   </div>
 </footer>
   {% include "versions.html" %}
