@@ -78,7 +78,7 @@ The following example demonstrates how a ScriptEngine instance is configured by 
 
 The ``renjin-appengine`` module provides a more complex example. 
 There, the `AppEngineContextFactory`_ class prepares a FileSystemManager that is configured
-with a `AppEngineLocalFileSystemProvider`_ subclass that provides read-only acesss to the servlet's directory.
+with a `AppEngineLocalFileSystemProvider`_ subclass that provides read-only access to the servlet's directory.
 This allows R scripts access to "/WEB-INF/data/model.R", which is translated into the absolute
 path at runtime.
 
@@ -117,7 +117,7 @@ additional, internal Maven repository that is used to resolve packages:
 
 .. code-block:: java
 
-    RemoteRepository internalRepo = new RemoteReocs.pository.Builder(
+    RemoteRepository internalRepo = new RemoteRepository.Builder(
         "internal", /* id */ 
         "default",  /* type */
         "https://repo.acme.com/content/groups/public/").build();
