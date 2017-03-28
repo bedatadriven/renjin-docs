@@ -1,7 +1,7 @@
 .. _sec-thread-safety:
 
 Thread-Safety
-==========================
+=============
 
 R code must always be evaluated in the context of a Session, which carries certain
 state, such as the Global Environment the list of loaded packages, global options, and the
@@ -68,5 +68,26 @@ The `Apache Commons Pool`_ project provides a solid implementation that can be e
 pool Renjin ScriptEngine sessions.
 
 .. _`Apache Commons Pool`: https://commons.apache.org/proper/commons-pool/
+
+
+Sharing data between ScriptEngines
+----------------------------------
+
+One of the principal advantages of running multiple, concurrent R Sessions in the same process
+is that you can share data between them.
+
+By design, Renjin requires Vector implementations, which correspond to R objects of type "list", "character", "double", "integer",
+"complex", and "raw", to be _immutable_, which means that they cannot be changed after they are created. Environment and
+pairlist objects are _mutable_, both within the R language and in their Java implementations, and so _cannot_ be shared between
+Sessions. 
+
+This means that a data.frame object, for example, can be created or loaded once, and then shared between multiple 
+concurrent Sessions which do their own computation on the dataset.
+
+
+
+
+
+
 
 

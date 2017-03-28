@@ -13,6 +13,7 @@ Renjin Documentation
    introduction
    interactive/index
    library/index
+   package/index
    importing-java-classes-in-r-code
    writing-renjin-extensions
    renjin-java-api-specification.rst
