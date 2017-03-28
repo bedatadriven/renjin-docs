@@ -34,6 +34,8 @@ Usage
 
 .. code-block:: R
 
+   library(renjin)
+
    bigsum <- function(n) {
      sum <- 0
      for(i in seq(from = 1, to = n)) {
