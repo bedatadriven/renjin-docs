@@ -21,12 +21,21 @@ using the latest version of Oracle or OpenJDK 8. The rJava package is also
 required, but should be installed automatically.
 
    
-Installation
--------------
+Installation (R >= 3.4)
+-----------------------
 
 .. code-block:: R
 
    install.packages("https://nexus.bedatadriven.com/content/groups/public/org/renjin/renjin-gnur-package/0.8.2353/renjin-gnur-package-0.8.2353.tar.gz")
+
+
+Installation (R < 3.3)
+-----------------------
+
+.. code-block:: R
+
+   download.file("https://nexus.bedatadriven.com/content/groups/public/org/renjin/renjin-gnur-package/0.8.2353/renjin-gnur-package-0.8.2353.tar.gz", "renjin.tgz")
+   install.packages("renjin.tgz", repos = NULL, type = "source")
 
 
 Usage
