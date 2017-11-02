@@ -21,6 +21,7 @@ Let's take the example of fitting an SVM model with the `e1071 package`_.
         RenjinScriptEngineFactory factory = new RenjinScriptEngineFactory();
         // create a Renjin engine:
         ScriptEngine engine = factory.getScriptEngine();
+	engine.eval("library(e1071)");
 	engine.eval("data(iris)");
         engine.eval("svmfit <- svm(Species~., data=iris)");
       }
