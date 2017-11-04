@@ -91,7 +91,7 @@ See the `renjin-sbt-example`_ on GitHub for a complete example.
     Renjin's dependencies. If you encounter class path problems with the plugin,
     try building your project without.
 
-.. _renjin-sbt-example: https://github.com/bedatadriven/renjin-gradle-example
+.. _renjin-sbt-example: https://github.com/bedatadriven/renjin-sbt-example
 .. _report: http://stackoverflow.com/questions/40888063/load-rdata-from-an-r-script-in-scala-using-renjin#answer-40999169
 .. _coursier: https://github.com/alexarchambault/coursier
 
