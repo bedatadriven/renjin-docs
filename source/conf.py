@@ -54,7 +54,7 @@ copyright = u'2014–{0}, BeDataDriven'.format(datetime.now().year)
 # The short X.Y version.
 version = '0.8'
 # The full version, including alpha/beta/rc tags.
-release = '0.8.2539'
+release = '0.8.2541'
 
 rst_epilog = '.. |VERSION| replace:: %s' % release
 
