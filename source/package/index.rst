@@ -16,7 +16,7 @@ the R code.
 Prerequisites
 -------------
 
-You must have Java 7 installed or higher. For best performance, we recommend
+You must have Java 8 installed or higher. For best performance, we recommend
 using the latest version of Oracle or OpenJDK 8. The rJava package is also
 required, but should be installed automatically.
 

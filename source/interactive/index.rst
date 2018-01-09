@@ -16,7 +16,7 @@ Read-Eval-Print-Loop (REPL) similar to that of GNU R.
 Prerequisites
 -------------
 
-Renjin requires a Java Runtime Environment, version 7 or later.
+Renjin requires a Java Runtime Environment, version 8 or later.
 We recommend that you install the latest version of the Oracle's JDK. 
 
 
