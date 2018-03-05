@@ -75,6 +75,11 @@ Renjin's Script Engine:
     resolvers += 
         "BeDataDriven" at "https://nexus.bedatadriven.com/content/groups/public"
 
+    // Workaround for buggy http handler in SBT 1.x  
+    // https://github.com/sbt/sbt/issues/3570
+    // Do not include for SBT 0.13.x or earlier
+    updateOptions := updateOptions.value.withGigahorse(false)
+
     lazy val root = (project in file(".")).
       settings(
         name := "renjin-test",
