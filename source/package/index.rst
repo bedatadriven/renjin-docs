@@ -29,7 +29,7 @@ package from Renjin's secure repository:
 
 .. code-block:: R
 
-   install.packages("https://nexus.bedatadriven.com/content/groups/public/org/renjin/renjin-gnur-package/0.9.2631/renjin-gnur-package-0.9.2631.tar.gz", repos = NULL)
+   source("http://packages.renjin.org/install.R")
 
 
 Older versions of GNU R may not support secure (https) URLs on your platform, or may not 
