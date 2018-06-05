@@ -22,7 +22,7 @@ Renjin's Script Engine as dependency to your project:
      <dependency>
        <groupId>org.renjin</groupId>
        <artifactId>renjin-script-engine</artifactId>
-       <version>0.9.2644</version>
+       <version>0.9.2645</version>
      </dependency>
    </dependencies>
 
@@ -38,7 +38,7 @@ For this to work you will also need to add BeDataDriven's public repository to y
       </repository>
     </repositories>
 
-You can use ``RELEASE`` instead of ``0.9.2644`` in the project file to use the
+You can use ``RELEASE`` instead of ``0.9.2645`` in the project file to use the
 very latest versions of the Renjin components.
 
 
@@ -54,7 +54,7 @@ For projects organized with Gradle, add the following to your ``build.gradle`` f
     }
     
     dependencies {
-      compile "org.renjin:renjin-script-engine:0.9.2644";
+      compile "org.renjin:renjin-script-engine:0.9.2645";
     }
 
 See the `renjin-gradle-example`_ on GitHub for a complete example.
@@ -85,7 +85,7 @@ Renjin's Script Engine:
         name := "renjin-test",
         version := "1.0",
         scalaVersion := "2.10.6",
-        libraryDependencies += "org.renjin" % "renjin-script-engine" % "0.9.2644"
+        libraryDependencies += "org.renjin" % "renjin-script-engine" % "0.9.2645"
       )
 
 See the `renjin-sbt-example`_ on GitHub for a complete example.
@@ -112,7 +112,7 @@ through a point-and-click interface.
 If this isn't possible for whatever reason, you can download 
 a single JAR file called:
 
-    renjin-script-engine-0.9.2644-jar-with-dependencies.jar
+    renjin-script-engine-0.9.2645-jar-with-dependencies.jar
 
 from the Renjin website and manually add this as a dependency in Eclipse.
 
@@ -130,7 +130,7 @@ a specific ``module.xml`` file:
 
     <module xmlns="urn:jboss:module:1.1" name="org.renjin">
       <resources>
-        <resource-root path="renjin-script-engine-0.9.2644-jar-with-dependencies.jar"/>
+        <resource-root path="renjin-script-engine-0.9.2645-jar-with-dependencies.jar"/>
       </resources>
       <dependencies>
         <module name="javax.api"/>
@@ -161,7 +161,7 @@ to `spark-submit` or `dse spark-submit`.
       <dependency>
         <groupId>org.renjin</groupId>
         <artifactId>renjin-script-engine</artifactId>
-        <version>0.9.2644</version>
+        <version>0.9.2645</version>
       </dependency>
    
       <dependency>
