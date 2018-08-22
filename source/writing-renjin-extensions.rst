@@ -102,7 +102,7 @@ packages:
 
         <properties>
             <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-            <renjin.version>0.9.2677</renjin.version>
+            <renjin.version>0.9.2682</renjin.version>
         </properties>
 
         <dependencies>
