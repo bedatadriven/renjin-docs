@@ -38,7 +38,7 @@ support installing directly from URLs. In this case, you can run:
 
 .. code-block:: R
 
-   download.file("http://nexus-insecure.bedatadriven.com/content/groups/public/org/renjin/renjin-gnur-package/0.9.2707/renjin-gnur-package-0.9.2707.tar.gz", "renjin.tgz")
+   download.file("http://nexus-insecure.bedatadriven.com/content/groups/public/org/renjin/renjin-gnur-package/0.9.2708/renjin-gnur-package-0.9.2708.tar.gz", "renjin.tgz")
    install.packages("renjin.tgz", repos = NULL, type = "source")
 
 
