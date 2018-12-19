@@ -133,6 +133,20 @@ read more about these types and how to access their values in the `javadoc`_.
 .. _javadoc: http://javadoc.renjin.org/latest/index.html?org/renjin/sexp/package-summary.html
 
 
+In a more general sense, you can get a list of variables defined in the global environment by using the ls() function:
 
+.. code-block:: java
+
+    StringVector variables = (StringVector)engine.eval("ls()");
+
+You can also access the global  `Environment`_ object through Renjin's API:
+
+.. _Environment: http://javadoc.renjin.org/latest/org/renjin/sexp/Environment.html
+
+.. code-block:: java
+
+    RenjinScriptEngine renjinScriptEngine = (RenjinScriptEngine)engine;
+    Session session = renjinScriptEngine.getSession();
+    Environment global = session.getGlobalEnvironment();
 
 
