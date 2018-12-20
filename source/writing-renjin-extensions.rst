@@ -426,4 +426,128 @@ a test.
 
 .. _lower case letters and no strange symbols: http://maven.apache.org/guides/mini/guide-naming-conventions.html
 
+Some practical examples
+-----------------------
+Lets say we wanted to create a meantrim function that takes a vector as argument and trims off the min and max values first. i.e.
 
+.. code-block:: r
+
+    meantrim <- function(x) {
+      x <- x[x != max(x)]
+      x <- x[x != min(x)]
+      return(mean(x))
+    }
+    # Example:
+    vec <- c(2.3, 2.7, 3.1, 4.9, 1.0, 2.4, 2.6, 2.1, 2.0, 1.9)
+    print(paste("mean is ", mean(vec)))
+    [1] "mean is  2,5"
+    print(paste("meantrim is ", meantrim(vec)))
+    [1] "meantrim is  2,3875"
+    
+1. Create the files src/main/R/meantrim.R and src/test/R/test.meantrim.R
+2. In meantrim.R write your function:
+
+.. code-block:: r
+
+    meantrim <- function(x) {
+        x <- x[x != max(x)]
+        x <- x[x != min(x)]
+        return(mean(x))
+    }
+
+3. In the test.meantrim.R write your tests using Renjins hamcrest package:
+
+.. code-block:: r
+
+    library("com.mydomain:meantrim")
+    library("hamcrest")
+    assertThat(meantrim(1:10), identicalTo(5.5))
+
+4. Create the NAMESPACE file and export your function
+
+.. code-block:: txt
+
+    export(meantrim)
+
+5. Copy the example pom.xml and change the groupId and artefactId to match your pom (e.g. "com.mydomain" and "meantrim"), respectively. Your extension/package folder should now look like this:
+
+.. code-block:: txt
+
+    pom.xml
+    NAMESPACE
+    src
+    |-- main
+    |    |-- R
+    |        |- meantrim.R
+    |-- test
+         |-- R
+             |- test.meantrim.R  
+             
+6. Now you can do ``mvn test`` to test your package and ``mvn package`` to create the binary jar file from your package which will be stored in your "target" folder. You can now import this package in your Renjin session and use it.
+
+Using Java in your extension
+----------------------------
+
+A more involved example would be something where we have a java class that does something useful and we want to take advantage of that in an R function
+
+e.g. we have the Java class
+
+.. code-block:: java
+
+    package transformers;
+    public class StringTransformer {
+
+      /** strips off any non numeric char from the string. */
+      public static String toNumber(String txt) {
+        StringBuilder result = new StringBuilder();
+        txt.chars().mapToObj( i -> (char)i )
+        .filter( c -> Character.isDigit(c) ).forEach( c -> result.append(c) );
+        return result.toString();
+      }
+
+    } 
+    
+...and we want to make a library which has a function called "makeNumeric" which uses the StringTransformer.toNumber() functionality.
+
+1. Following the documentation about importing java classes: http://docs.renjin.org/en/latest/importing-java-classes-in-r-code.html
+
+2. Create src/main/java/StringTransformer.java with the code listed above
+
+3. Add extractDigits function (to a src/main/R/extractDigits.R file):
+
+.. code-block:: r
+
+    extractDigits <- function(x) {
+        import(transformers.StringTransformer)
+        sapply(x, function(txt) StringTransformer$toNumber(txt = txt), USE.NAMES = FALSE)
+    }
+    makeNumber <- function(x) as.numeric(extractDigits(x))
+
+4. Add test case to a src/test/R/test.extractDigits.R file:
+
+.. code-block:: r
+
+    library("com.mydomain:makenumeric")
+    library("hamcrest")
+
+    test.extractDigits <- function() {
+        assertThat(extractDigits(c("5", "6Y8", "He", "02")), identicalTo(c("5", "68", "", "02")))
+        assertThat(extractDigits("56Y8He02"), identicalTo("56802"))
+    }
+
+    test.makeNumber <- function() {
+        expected <- c(5, 68, NA, 2)
+        assertThat(makeNumber(c("5", "6Y8", "He", "02")), identicalTo(expected))
+        assertThat(makeNumber("234-123-789 12"), identicalTo(23412378912))
+    }
+    
+Note that when two test functions are defined hamcrest will report 3 tests being run. This is because as you can write assertions directly without wrapping them in a function (like we did in the meantrim case), the "base" itself counts as one test.
+
+5. Export the new functions in your NAMESPACE and use mvn to test and package your extension
+
+.. code-block:: txt
+
+    export(extractDigits)
+    export(makeNumber)
+    
+6. Now you can do ``mvn test`` to test your package and ``mvn package`` to create the binary jar file from your package which will be stored in your "target" folder.    
