@@ -428,6 +428,8 @@ a test.
 
 Some practical examples
 -----------------------
+Note: The code for the below examples can be found at https://github.com/bedatadriven/renjin-maven-package-example.
+
 Lets say we wanted to create a meantrim function that takes a vector as argument and trims off the min and max values first. i.e.
 
 .. code-block:: r
