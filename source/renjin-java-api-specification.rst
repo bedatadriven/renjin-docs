@@ -3,7 +3,7 @@ Renjin Java API specification
 
 This chapter includes a selection of public classes and methods in some of
 Renjin's Java packages which are most useful to users of Renjin looking to
-exchange data between Java and R code.
+exchange data between Java and R code. The java docs for renjin is available as http://javadoc.renjin.org/.
 
 org.renjin.sexp
 ---------------
