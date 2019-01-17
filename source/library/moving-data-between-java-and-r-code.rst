@@ -403,6 +403,22 @@ will throw a :java:ref:`ClassCastException <java.lang.ClassCastException>`:
     // use R's 'L' suffix to define an integer:
     DoubleVector res = (DoubleVector)engine.eval("1L");
     
+As mentioned in "Capturing results from Renjin" if you have more complex scripts, 
+you can fetch individual values by their name. e.g.
+
+.. code-block:: java
+
+    engine.eval("someVar <- 123 \n otherVar <- 'hello'");
+
+    Environment global = engine.getSession().getGlobalEnvironment();
+    Context topContext = engine.getSession().getTopLevelContext();
+
+    DoubleArrayVector numVec = (DoubleArrayVector)global.getVariable(topContext, "someVar");
+    StringVector strVec = (StringVector)global.getVariable(topContext, "otherVar");
+    int someVar = numVec.getElementAsInt(0);
+    String otherVar = strVec.asString();
+    // do stuff with the variables created in your script
+    
 Accessing individual elements of vectors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
