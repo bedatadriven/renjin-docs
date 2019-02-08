@@ -1,4 +1,6 @@
 
+.. _sec-using-packages:
+
 Using Packages
 --------------
 

@@ -3,8 +3,7 @@
 Introduction
 ============
 
-This guide covers Renjin version |version| and is aimed at developers looking
-to:
+This guide covers Renjin |release| and is aimed at developers looking to:
 
 1. integrate R code in their Java applications and to exchange data between Java
    and R code, and/or to
@@ -123,7 +122,7 @@ The labels at the top correspond to the fields in a Maven project (POM) file
 whereas the bottom labels explain how package references are constructed. The
 package detail page in Renjin's package repository browser tells you how to load
 extension packages from the command line or using a POM file (see the section
-:ref:`sec-using-r-packages-in-renjin`).
+:ref:`sec-using-packages`).
 
 .. _this blog post: http://www.renjin.org/blog/2015-09-14-new-packages-renjin-org.html
 
