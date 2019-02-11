@@ -52,7 +52,7 @@ copyright = u'2014–{0}, BeDataDriven'.format(datetime.now().year)
 # built documents.
 #
 # The full version, including alpha/beta/rc tags.
-release = '0.9.2719'
+release = '0.9.2720'
 version = release
 
 rst_epilog = '.. |VERSION| replace:: %s' % release
