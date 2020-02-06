@@ -140,6 +140,31 @@ additional, internal Maven repository that is used to resolve packages:
 You can also provide your own implementation of ``PackageLoader`` which resolves calls to 
 ``import()`` and ``require()`` in any other way that meets your needs.
 
+AetherPackageLoader behind a proxy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you are running Renjin behind a proxy it will be necessary for ``AetherPackageLoader``
+to configure a proxy in order to download and query the package repositories.
+   
+First, the repositories can be modified and assigned a proxy with the ``RemoteRepositoryBuilder``:
+
+.. code-block:: java
+   
+   RemoteRepository.Builder builder = new RemoteRepository.Builder(AetherFactory.renjinRepo());
+   builder.setProxy(new Proxy("https", HOST, PORT));
+   RemoteRepository renjinRepo = builder.build();
+
+Finally, because ``AetherPackageLoader`` is querying the Renjin packages repository API, it
+is necessary to change the proxy settings in the system properties.
+
+.. code-block:: java
+
+   Properties systemProperties = System.getProperties();
+   systemProperties.setProperty("http.proxyHost", HOST);
+   systemProperties.setProperty("http.proxyPort", PORT.toString());
+   systemProperties.setProperty("https.proxyHost", HOST);
+   systemProperties.setProperty("https.proxyPort", PORT.toString());
+
 Class Loading
 -------------
 
