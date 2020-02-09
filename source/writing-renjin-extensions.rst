@@ -427,3 +427,191 @@ a test.
 .. _lower case letters and no strange symbols: http://maven.apache.org/guides/mini/guide-naming-conventions.html
 
 
+Converting an existing GNU R package to a Renjin package
+--------------------------------------------------------
+All CRAN and Bioconductor packages listed at packages.renjin.org are compiled to Java bytecode
+(including C, C++ and Fortran sources) and packaged into a JAR from the original sources by a fully automated build system.
+
+You can use the same mechanism to convert a GNU R package (including c and fortran code) that is not on CRAN or Bioconductor
+into a Renjin package using the renjin-maven-plugin.
+
+In essence two files are needed in addition to the GNU R package source code that you want to convert:
+   #. A pom.xml file that calls the renjin maven plugin
+   #. A Vagrant file similar to the one use to build the Renjin project itself to get the right versions of gcc etc. so that the renjin maven plugin can process the c and fortran sources.
+
+The Maven build file
+~~~~~~~~~~~~~~~~~~~~
+If you have c and/or fortran code you need to invoke the gnur-compile goal in the renjin-maven-plugin.
+
+For a GNU R package containing c code, the pom.xml file should look something like this:
+
+.. code-block:: xml
+
+   <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <modelVersion>4.0.0</modelVersion>
+      <groupId>SOME.GROUP</groupId>
+      <artifactId>SOME-ARTIFACTID</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <properties>
+         <renjin.version>3.5-beta76</renjin.version>
+      </properties>
+      <dependencies>
+         <dependency>
+            <groupId>org.renjin</groupId>
+            <artifactId>methods</artifactId>
+            <version>${renjin.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.renjin</groupId>
+            <artifactId>datasets</artifactId>
+            <version>${renjin.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.renjin</groupId>
+            <artifactId>stats</artifactId>
+            <version>${renjin.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.renjin</groupId>
+            <artifactId>grDevices</artifactId>
+            <version>${renjin.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.renjin</groupId>
+            <artifactId>stats4</artifactId>
+            <version>${renjin.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.renjin</groupId>
+            <artifactId>tools</artifactId>
+            <version>${renjin.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.renjin</groupId>
+            <artifactId>utils</artifactId>
+            <version>${renjin.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.renjin</groupId>
+            <artifactId>graphics</artifactId>
+            <version>${renjin.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.renjin</groupId>
+            <artifactId>compiler</artifactId>
+            <version>${renjin.version}</version>
+            <scope>provided</scope>
+         </dependency>
+      </dependencies>
+      <repositories>
+         <repository>
+            <id>bedatadriven-public</id>
+            <url>https://nexus.bedatadriven.com/content/groups/public/</url>
+         </repository>
+      </repositories>
+      <pluginRepositories>
+         <pluginRepository>
+            <id>bedatadriven-public</id>
+            <url>https://nexus.bedatadriven.com/content/groups/public/</url>
+         </pluginRepository>
+      </pluginRepositories>
+      <build>
+         <plugins>
+            <plugin>
+               <groupId>org.renjin</groupId>
+               <artifactId>renjin-maven-plugin</artifactId>
+               <version>${renjin.version}</version>
+               <executions>
+                  <execution>
+                     <id>renjin-compile</id>
+                     <phase>process-classes</phase>
+                     <goals>
+                        <goal>namespace-compile</goal>
+                     </goals>
+                     <configuration>
+                        <sourceDirectory>${basedir}/R</sourceDirectory>
+                        <dataDirectory>${basedir}/data</dataDirectory>
+                        <defaultPackages>
+                           <package>methods</package>
+                           <package>stats</package>
+                           <package>utils</package>
+                           <package>grDevices</package>
+                           <package>graphics</package>
+                           <package>datasets</package>
+                        </defaultPackages>
+                     </configuration>
+                  </execution>
+                  <execution>
+                     <id>renjin-test</id>
+                     <phase>test</phase>
+                     <goals>
+                        <goal>test</goal>
+                     </goals>
+                     <configuration>
+                        <timeoutInSeconds>30</timeoutInSeconds>
+                        <testSourceDirectory>${basedir}/tests</testSourceDirectory>
+                        <defaultPackages>
+                           <package>methods</package>
+                           <package>stats</package>
+                           <package>utils</package>
+                           <package>grDevices</package>
+                           <package>graphics</package>
+                           <package>datasets</package>
+                        </defaultPackages>
+                     </configuration>
+                  </execution>
+                  <execution>
+                     <id>gnur-compile</id>
+                     <phase>compile</phase>
+                     <goals>
+                        <goal>gnur-compile</goal>
+                     </goals>
+                  </execution>
+               </executions>
+            </plugin>
+         </plugins>
+      </build>
+   </project>
+
+
+Vagrant
+~~~~~~~
+
+In addition to the standard Java tools, The Renjin Maven plugin relies on a GCC-based
+build chain to compile C/Fortran math routines to JVM byte code. The current version of the Renjin Maven plugin requires GCC 4.7.x.
+
+An easy way to get that to work is to use Vagrant to quickly setup a Virtual Box with all the tools needed
+for Renjin's C/Fortran compile step.
+
+After you have vagrant installed, create a file called Vagrantfile in the root of the project with the following content:
+
+.. code-block:: none
+
+   # -*- mode: ruby -*-
+   # vi: set ft=ruby :
+
+   # Vagrantfile API/syntax version
+   VAGRANTFILE_API_VERSION = "2"
+
+   # Override host locale variable
+   ENV["LC_ALL"] = "en_US.UTF-8"
+
+   Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+     config.vm.box = "ubuntu/xenial64"
+     config.vm.provision :shell, inline: "apt-get update && apt-get install openjdk-8-jdk maven make gcc-4.7 gcc-4.7-plugin-dev gfortran-4.7 g++-4.7 gcc-4.7.multilib g++-4.7-multilib unzip libz-dev -y"
+     config.vm.synced_folder ".", "/home/ubuntu/renjin"
+     config.vm.synced_folder "~/.m2", "/home/vagrant/.m2"
+
+     config.vm.provider "virtualbox" do |v|
+       v.memory = 4096
+       v.cpus = 2
+     end
+   end
+
+Now you can just do the following to convert your package:
+   #. vagrant up
+   #. vagrant ssh
+   #. cd /home/ubuntu/renjin
+   #. mvn clean install
