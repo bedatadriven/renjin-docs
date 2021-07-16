@@ -1,3 +1,5 @@
+:orphan:
+
 .. meta::
     :http-equiv=refresh: 0;url=library/moving-data-between-java-and-r-code.html
 

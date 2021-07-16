@@ -2,3 +2,5 @@ venv/
 build/
 *.swp
 *.*~
+*.iml
+.idea/
