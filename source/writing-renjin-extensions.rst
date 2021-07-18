@@ -219,11 +219,8 @@ packages. Using this file, the package developer controls how his or her package
 finds functions.
 
 Usage of the ``NAMESPACE`` in Renjin is almost exactly the same as in GNU R
-save for two differences:
-
-1. the directives related to S4 classes are not yet supported by Renjin and
-2. Renjin accepts the directive ``importClass()`` for importing Java classes
-   into the package namespace. 
+with one addition: Renjin accepts the directive ``importClass()`` for importing
+Java classes into the package namespace.
 
 Here is an overview of the namespace directives that Renjin supports:
 
@@ -253,6 +250,18 @@ Here is an overview of the namespace directives that Renjin supports:
     print method for class ``foo``. The ``print.foo()`` does not need to be
     exported.
 
+``importClassesFrom(package, classA)``
+    import S4 classes
+
+``importMethodsFrom(package, methodA)``
+    import S4 methods
+
+``exportClasses(fooClass)``
+    export S4 classes. You can add as many classes you like to this directive
+
+``exportMethods(barMethod)``
+    export S4 methods. You can add as many methods you like to this directive
+
 ``importClass(com.acme.myclass)``
     A namespace directive which is unique to Renjin and which allows Java
     classes to be imported into the package namespace. This directive is
@@ -260,12 +269,11 @@ Here is an overview of the namespace directives that Renjin supports:
     that was introduced in the chapter :doc:`importing-java-classes-in-r-code`.
 
 To summarize: the R functions in your package have access to all R functions
-defined within your package (also those that are not explicitely exported) as
+defined within your package (also those that are not explicitly exported since
+Java has its own mechanism to control the visibility of classes) as
 well as the Java classes imported into the package names using the
 ``importClass`` directive. Other packages only have access to the R objects
-that your package exports as well as to the public Java classes. Since Java has
-its own mechanism to control the visibility of classes, there is no
-``exportClass`` directive in the ``NAMESPACE`` file.s
+that your package exports as well as to the public Java classes.
 
 Using the *hamcrest* package to write unit tests
 ------------------------------------------------
