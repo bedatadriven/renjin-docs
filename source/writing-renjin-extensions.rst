@@ -22,7 +22,7 @@ your R code. You can use Javadoc to document your Java classes and methods.
 Package directory layout
 ------------------------
 
-The files in a Renjin package must be organized in a directory structure that
+The files in a Renjin package should be organized in a directory structure that
 adheres to the `Maven standard directory layout`_. A directory layout that will
 cover most Renjin packages is as follows::
 
@@ -257,7 +257,8 @@ Here is an overview of the namespace directives that Renjin supports:
     import S4 methods
 
 ``exportClasses(fooClass)``
-    export S4 classes. You can add as many classes you like to this directive
+    export S4 classes (and `Reference Classes <https://www.rdocumentation.org/packages/methods/versions/3.5.3/topics/ReferenceClasses>`_).
+    You can add as many classes you like to this directive
 
 ``exportMethods(barMethod)``
     export S4 methods. You can add as many methods you like to this directive
@@ -274,6 +275,31 @@ Java has its own mechanism to control the visibility of classes) as
 well as the Java classes imported into the package names using the
 ``importClass`` directive. Other packages only have access to the R objects
 that your package exports as well as to the public Java classes.
+
+If you are creating a package that uses java code and you want to expose an R api
+for handling package consumers you need to put the import statement in the R function
+that access the java code. Using the example of the ``Customer`` java class from the
+:ref:`chap-importing-java-classes-into-R-code` chapter:
+Lets say you want to expose a createCustomer function so that package consumers does not
+have to interact directly with your java classes. E.g. instead of doing Customer$new()
+we create the following factory function
+
+.. code-block:: r
+
+    createCustomer <- function(name, age) {
+      import(beans.Customer)
+      Customer$new(name = name, age = age)
+    }
+
+Note that we need to put the ``import(beans.Customer)`` directive inside the function
+for this to work. We also need to add ``export(createCustomer)`` to the ``NAMESPACE`` file which will
+enable package consumers to do:
+
+.. code-block:: r
+
+    library('com.acme:customerbean')
+    bobby <- createCustomer(name = "Bobby", age = 26)
+
 
 Using the *hamcrest* package to write unit tests
 ------------------------------------------------
@@ -434,4 +460,15 @@ a test.
 
 .. _lower case letters and no strange symbols: http://maven.apache.org/guides/mini/guide-naming-conventions.html
 
+Example extension projects
+==========================
+Below is a short list of fully functioning Renjin packages:
 
+`renjin-maven-package-example <https://github.com/bedatadriven/renjin-maven-package-example>`_
+A simple example showing a renjin extension (package) with java integration.
+
+`renjinSamplesAndTests <https://github.com/perNyfelt/renjinSamplesAndTests>`_
+Various simple examples of Renjin extensions.
+
+`xmlr <https://github.com/Alipsa/xmlr>`_
+A XML DOM package developed with Reference Classes using the GNU R directory layout.
