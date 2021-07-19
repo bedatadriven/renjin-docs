@@ -1,6 +1,6 @@
 
 Using Renjin as an R Package
-==========================
+============================
 
 .. index::
    single: REPL
@@ -24,7 +24,7 @@ required, but should be installed automatically.
 Installation
 ------------
 
-On the latest version of GNU R (≥ 3.4), you can install the latest version of the
+On the newer versions of GNU R (i.e. ≥ 3.4), you can install the latest version of the
 package from Renjin's secure repository:
 
 .. code-block:: R
@@ -36,9 +36,9 @@ Older versions of GNU R may not support secure (https) URLs on your platform, or
 support installing directly from URLs. In this case, you can run:
 
 
-.. code-block:: R
+.. parsed-literal::
 
-   download.file("http://nexus-insecure.bedatadriven.com/content/groups/public/org/renjin/renjin-gnur-package/3.5-beta43/renjin-gnur-package-3.5-beta43.tar.gz", "renjin.tgz")
+   download.file("http://nexus-insecure.bedatadriven.com/content/groups/public/org/renjin/renjin-gnur-package/|release|/renjin-gnur-package-|release|.tar.gz", "renjin.tgz")
    install.packages("renjin.tgz", repos = NULL, type = "source")
 
 

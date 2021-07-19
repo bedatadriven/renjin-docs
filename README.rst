@@ -7,8 +7,13 @@ documentation is created using Sphinx_.
 Requirements to build the documentation are:
 
 * Sphinx_, obviously.
-* The javasphinx_ extension for Sphinx.
 * LaTeX, if you want to create a PDF version of the documentation.
+
+e.g. on Ubuntu:
+
+    pip3 install -U Sphinx
+
+    sudo apt install latexmk
 
 If you want to creat the HTML documentation using the lovely `RTD theme`_ you
 will need to install this as well:

@@ -75,94 +75,94 @@ packages for Renjin are tested, packaged, and installed using a Maven plugin.
 The following XML file can be used as a *pom.xml* template for all Renjin
 packages:
 
-.. code-block:: xml
+.. parsed-literal::
 
-    <project xmlns="http://maven.apache.org/POM/4.0.0"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-             http://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <modelVersion>4.0.0</modelVersion>
+  <project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-        <groupId>com.acme</groupId>
-        <artifactId>foobar</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <packaging>jar</packaging>
+    <groupId>com.acme</groupId>
+    <artifactId>foobar</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-        <!-- general information about your package -->
-        <name>Package name or title</name>
-        <description>A short description of your package.</description>
-        <url>http://www.url.to/your/package/website</url>
-        <licenses>
-            <!-- add one or more licenses under which the package is released -->
-            <license>
-                <name>Apache License version 2.0</name>
-                <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-            </license>
-        </licenses>
+    <!-- general information about your package -->
+    <name>Package name or title</name>
+    <description>A short description of your package.</description>
+    <url>http://www.url.to/your/package/website</url>
+    <licenses>
+      <!-- add one or more licenses under which the package is released -->
+      <license>
+        <name>Apache License version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      </license>
+    </licenses>
 
-        <properties>
-            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-            <renjin.version>3.5-beta43</renjin.version>
-        </properties>
+    <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <renjin.version>\ |release|\ </renjin.version>
+    </properties>
 
-        <dependencies>
-            <!-- the script engine is convenient even if you do not use it explicitly -->
-            <dependency>
-                <groupId>org.renjin</groupId>
-                <artifactId>renjin-script-engine</artifactId>
-                <version>${renjin.version}</version>
-            </dependency>
-            <!-- the hamcrest package is only required if you use it for unit tests -->
-            <dependency>
-                <groupId>org.renjin</groupId>
-                <artifactId>hamcrest</artifactId>
-                <version>${renjin.version}</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
+    <dependencies>
+      <!-- the script engine is convenient even if you do not use it explicitly -->
+      <dependency>
+        <groupId>org.renjin</groupId>
+          <artifactId>renjin-script-engine</artifactId>
+          <version>${renjin.version}</version>
+      </dependency>
+      <!-- the hamcrest package is only required if you use it for unit tests -->
+      <dependency>
+        <groupId>org.renjin</groupId>
+          <artifactId>hamcrest</artifactId>
+          <version>${renjin.version}</version>
+          <scope>test</scope>
+      </dependency>
+    </dependencies>
 
-        <repositories>
-            <repository>
-                <id>bedatadriven</id>
-                <name>bedatadriven public repo</name>
-                <url>https://nexus.bedatadriven.com/content/groups/public/</url>
-            </repository>
-        </repositories>
+    <repositories>
+      <repository>
+        <id>bedatadriven</id>
+        <name>bedatadriven public repo</name>
+        <url>https://nexus.bedatadriven.com/content/groups/public/</url>
+      </repository>
+    </repositories>
 
-        <pluginRepositories>
-            <pluginRepository>
-                <id>bedatadriven</id>
-                <name>bedatadriven public repo</name>
-                <url>https://nexus.bedatadriven.com/content/groups/public/</url>
-            </pluginRepository>
-        </pluginRepositories>
+    <pluginRepositories>
+      <pluginRepository>
+        <id>bedatadriven</id>
+        <name>bedatadriven public repo</name>
+        <url>https://nexus.bedatadriven.com/content/groups/public/</url>
+      </pluginRepository>
+    </pluginRepositories>
 
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.renjin</groupId>
-                    <artifactId>renjin-maven-plugin</artifactId>
-                    <version>${renjin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>build</id>
-                            <goals>
-                                <goal>namespace-compile</goal>
-                            </goals>
-                            <phase>process-classes</phase>
-                        </execution>
-                        <execution>
-                            <id>test</id>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                            <phase>test</phase>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </build>
-    </project>
+    <build>
+      <plugins>
+        <plugin>
+          <groupId>org.renjin</groupId>
+          <artifactId>renjin-maven-plugin</artifactId>
+          <version>${renjin.version}</version>
+          <executions>
+            <execution>
+              <id>build</id>
+              <goals>
+                <goal>namespace-compile</goal>
+              </goals>
+              <phase>process-classes</phase>
+            </execution>
+            <execution>
+              <id>test</id>
+              <goals>
+                <goal>test</goal>
+              </goals>
+              <phase>test</phase>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </build>
+  </project>
 
 This POM file provides a lot of information:
 

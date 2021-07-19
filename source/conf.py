@@ -20,6 +20,7 @@ from datetime import datetime
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
+sys.path.append(os.path.abspath('../exts'))
 
 # -- General configuration ------------------------------------------------
 
@@ -29,7 +30,7 @@ from datetime import datetime
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['javasphinx', ]
+extensions = ['javaext', ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -52,7 +53,7 @@ copyright = u'2014–{0}, BeDataDriven'.format(datetime.now().year)
 # built documents.
 #
 # The full version, including alpha/beta/rc tags.
-release = '3.5-beta50'
+release = '3.5-beta76'
 version = release
 
 rst_epilog = '.. |VERSION| replace:: %s' % release

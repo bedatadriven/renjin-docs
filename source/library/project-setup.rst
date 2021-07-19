@@ -16,16 +16,17 @@ Maven
 For projects organized with Apache Maven, you can simply add 
 Renjin's Script Engine as dependency to your project:
 
-.. code-block:: xml
+.. parsed-literal::
 
    <dependencies>
      <dependency>
        <groupId>org.renjin</groupId>
        <artifactId>renjin-script-engine</artifactId>
-       <version>3.5-beta43</version>
+       <version>\ |release|\ </version>
      </dependency>
    </dependencies>
 
+where
 For this to work you will also need to add BeDataDriven's public repository to your ``pom.xml``:
 
 .. code-block:: xml
@@ -38,7 +39,7 @@ For this to work you will also need to add BeDataDriven's public repository to y
       </repository>
     </repositories>
 
-You can use ``RELEASE`` instead of ``3.5-beta43`` in the project file to use the
+You can use ``RELEASE`` instead of "|release|" in the project file to use the
 very latest versions of the Renjin components.
 
 
@@ -47,14 +48,14 @@ Gradle
 
 For projects organized with Gradle, add the following to your ``build.gradle`` file:
 
-.. code-block:: groovy
+.. parsed-literal::
     
     repositories {
       maven { url "https://nexus.bedatadriven.com/content/groups/public" }
     }
     
     dependencies {
-      compile "org.renjin:renjin-script-engine:3.5-beta43";
+      compile "org.renjin:renjin-script-engine:|release|";
     }
 
 See the `renjin-gradle-example`_ on GitHub for a complete example.
@@ -69,7 +70,7 @@ Scala Build Tool (SBT)
 The following is an example of ``build.sbt`` that includes 
 Renjin's Script Engine:
 
-.. code-block:: scala
+.. parsed-literal::
  
     // IMPORTANT: sbt may fail if http*s* is not used.
     resolvers += 
@@ -85,7 +86,7 @@ Renjin's Script Engine:
         name := "renjin-test",
         version := "1.0",
         scalaVersion := "2.10.6",
-        libraryDependencies += "org.renjin" % "renjin-script-engine" % "3.5-beta43"
+        libraryDependencies += "org.renjin" % "renjin-script-engine" % "|release|"
       )
 
 See the `renjin-sbt-example`_ on GitHub for a complete example.
@@ -112,7 +113,7 @@ through a point-and-click interface.
 If this isn't possible for whatever reason, you can download 
 a single JAR file called:
 
-    renjin-script-engine-3.5-beta43-jar-with-dependencies.jar
+    renjin-script-engine-|release|-jar-with-dependencies.jar
 
 from the Renjin website and manually add this as a dependency in Eclipse.
 
@@ -126,11 +127,11 @@ JBoss
 There have been reports of difficulty loading Renjin within JBoss without
 a specific ``module.xml`` file:
 
-.. code-block:: xml
+.. parsed-literal::
 
     <module xmlns="urn:jboss:module:1.1" name="org.renjin">
       <resources>
-        <resource-root path="renjin-script-engine-3.5-beta43-jar-with-dependencies.jar"/>
+        <resource-root path="renjin-script-engine-\ |release|\ -jar-with-dependencies.jar"/>
       </resources>
       <dependencies>
         <module name="javax.api"/>
@@ -148,7 +149,7 @@ packages, you can still use Maven (or Gradle or SBT) to automatically resolve
 your dependencies and build a single JAR that you can pass as an argument 
 to `spark-submit` or `dse spark-submit`.
 
-.. code-block:: xml
+.. parsed-literal::
 
     <dependencies>
       <dependency>
@@ -161,7 +162,7 @@ to `spark-submit` or `dse spark-submit`.
       <dependency>
         <groupId>org.renjin</groupId>
         <artifactId>renjin-script-engine</artifactId>
-        <version>3.5-beta43</version>
+        <version>\ |release|\ </version>
       </dependency>
    
       <dependency>

@@ -1,7 +1,7 @@
 
 
 Capturing results from Renjin
-----------------------------
+-----------------------------
 
 There are two main options for capturing results from R code 
 evaluated by the Renjin ScriptEngine. You can either capture the 
