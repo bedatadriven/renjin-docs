@@ -4,3 +4,4 @@ build/
 *.*~
 *.iml
 .idea/
+exts/javaext/__pycache__/
