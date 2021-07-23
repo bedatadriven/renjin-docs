@@ -16,6 +16,7 @@ Renjin Documentation
    package/index
    importing-java-classes-in-r-code
    writing-renjin-extensions
+   converting-a-gnu-r-package
    renjin-java-api-specification.rst
 
 
